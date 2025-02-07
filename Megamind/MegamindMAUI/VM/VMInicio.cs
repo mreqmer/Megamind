@@ -8,5 +8,6 @@ namespace MegamindMAUI.VM
 {
     public class VMInicio
     {
+        //testeando la branch
     }
 }
