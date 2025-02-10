@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MegamindMAUI.Views.VistaJuego"
+             xmlns:vmodel="clr-namespace:MegamindMAUI.VM"
+             Title="VistaJuego"
+             BackgroundColor="#e2b383">
+    <ContentPage.BindingContext>
+        <vmodel:VMJuego/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+
+        <CollectionView Grid.Row="0"
+                ItemsSource="{Binding Combinacion}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Image Source="{Binding Color}"></Image>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
