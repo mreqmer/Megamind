@@ -6,19 +6,29 @@ using System.Threading.Tasks;
 
 namespace ENT
 {
+    public enum ColorPisticha
+    {
+        NEGRO, BLANCO, NADA
+    }
     public class Pisticha
     {
-        //TODO: Implementar propiedades de la pisticha
         #region ATRIBUTOS
-
+        private ColorPisticha color;
         #endregion
 
         #region PROPIEDADES
-
+        public ColorPisticha Color { get { return color; } set { color = value; } }
         #endregion
 
         #region CONSTRUCTORES
-
+        public Pisticha()
+        {
+            Color = ColorPisticha.NADA;
+        }
+        public Pisticha(ColorPisticha color)
+        {
+            Color = color;
+        }
         #endregion
     }
 }
