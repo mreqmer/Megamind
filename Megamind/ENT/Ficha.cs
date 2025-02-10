@@ -6,19 +6,30 @@ using System.Threading.Tasks;
 
 namespace ENT
 {
+    public enum ColorFicha
+    {
+        ROJO, NEGRO, BLANCO, AZUL, AMARILLO, VERDE, MORADO, ROSA, NADA
+    }
+
     public class Ficha
     {
-        //TODO: Implementar propiedades de la ficha
         #region ATRIBUTOS
-
+        private ColorFicha color;
         #endregion
 
         #region PROPIEDADES
-
+        public ColorFicha Color { get { return color; } set { color = value; } }
         #endregion
 
         #region CONSTRUCTORES
-
+        public Ficha()
+        {
+            Color = ColorFicha.NADA;
+        }
+        public Ficha(ColorFicha color)
+        {
+            Color = color;
+        }
         #endregion
     }
 }
