@@ -8,6 +8,8 @@ namespace MegamindMAUI.VM
 {
     public class VMInicio
     {
-        //testeando la branch
+        //testeando la branch, pero ahora de verdad
+
+        //El selui no se entera del git
     }
 }
