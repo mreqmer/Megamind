@@ -10,6 +10,6 @@ namespace MegamindMAUI.VM
     {
         //testeando la branch, pero ahora de verdad
 
-        //hola selui
+        //Adios selui
     }
 }
