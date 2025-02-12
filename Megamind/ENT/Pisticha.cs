@@ -6,28 +6,37 @@ using System.Threading.Tasks;
 
 namespace ENT
 {
-    public enum ColorPisticha
-    {
-        NEGRO, BLANCO, NADA
-    }
     public class Pisticha
     {
         #region ATRIBUTOS
-        private ColorPisticha color;
+        private List<string> pistichaColores = new List<string>{
+            "rojo", "negro", "azul", "amarillo",
+            "rosa", "verde", "blanco", "morado", "nada"
+        };
+        private String pistichaColor;
         #endregion
 
         #region PROPIEDADES
-        public ColorPisticha Color { get { return color; } set { color = value; } }
+        public List<string> Colores { get { return pistichaColores; } }
+        public String FichaColor { get { return pistichaColor; } set { pistichaColor = value; } }
         #endregion
 
         #region CONSTRUCTORES
         public Pisticha()
         {
-            Color = ColorPisticha.NADA;
+            pistichaColor = "nada.png";
         }
-        public Pisticha(ColorPisticha color)
+
+        public Pisticha(string color)
         {
-            Color = color;
+            if (pistichaColores.Contains(color))
+            {
+                pistichaColor = color + ".png";
+            }
+            else
+            {
+                pistichaColor = "nada.png";
+            }
         }
         #endregion
     }
