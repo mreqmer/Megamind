@@ -6,29 +6,38 @@ using System.Threading.Tasks;
 
 namespace ENT
 {
-    public enum ColorFicha
-    {
-        ROJO, NEGRO, BLANCO, AZUL, AMARILLO, VERDE, MORADO, ROSA, NADA
-    }
 
     public class Ficha
     {
         #region ATRIBUTOS
-        private ColorFicha color;
+        private List<string> colores = new List<string>{
+            "rojo", "negro", "azul", "amarillo",
+            "rosa", "verde", "blanco", "morado", "nada"
+        };
+        private String fichaColor;
         #endregion
 
         #region PROPIEDADES
-        public ColorFicha Color { get { return color; } set { color = value; } }
+        public List<string> Colores { get { return colores; } }
+        public String FichaColor { get { return fichaColor; } set { fichaColor = value; } }
         #endregion
 
         #region CONSTRUCTORES
         public Ficha()
         {
-            Color = ColorFicha.NADA;
+            fichaColor = "nada.png";
         }
-        public Ficha(ColorFicha color)
+
+        public Ficha(string color)
         {
-            Color = color;
+            if (colores.Contains(color))
+            {
+                fichaColor = color + ".png";
+            }
+            else
+            {
+                fichaColor = "nada.png";
+            }
         }
         #endregion
     }
