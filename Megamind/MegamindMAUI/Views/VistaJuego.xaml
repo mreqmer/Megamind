@@ -19,7 +19,8 @@
         <CollectionView
                 Grid.Row="0"
                 MaximumHeightRequest="100"
-                BackgroundColor="Blue">
+                BackgroundColor="Blue"
+                >
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
             </CollectionView.ItemsLayout>
@@ -51,14 +52,15 @@
             <CollectionView BackgroundColor="#b98d66" 
                     VerticalOptions="FillAndExpand"
                         HeightRequest="150"
-                        WidthRequest="500">
+                        WidthRequest="500"
+                        ItemsSource="{Binding Tablero}">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                <GridItemsLayout Orientation="Vertical" Span="4" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <HorizontalStackLayout>
-                        <Label Text="fdkfsñ"/>
+                        <Image Source="{Binding FichaColor}" HeightRequest="10"/>
                     </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
