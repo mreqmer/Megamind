@@ -25,14 +25,20 @@ namespace MegamindMAUI.VM
             new Ficha("verde"),
             new Ficha("rosa")
         };
-        private ObservableCollection<Ficha> combinación;
+        private ObservableCollection<Ficha> combinacion = new ObservableCollection<Ficha>
+        {
+            new Ficha("nada"),
+            new Ficha("nada"),
+            new Ficha("nada"),
+            new Ficha("nada")
+        };
 
-        #endregion
+    #endregion
 
-        #region PROPIEDADES
-        public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
+    #region PROPIEDADES
+    public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
         public ObservableCollection<Ficha> Tablero { get { return tablero; } }
-        public ObservableCollection<Ficha> Combinación { get { return combinación;} set { combinación = value; } }
+        public ObservableCollection<Ficha> Combinacion { get { return combinacion;} set { combinacion = value; } }
 
         #endregion
 
