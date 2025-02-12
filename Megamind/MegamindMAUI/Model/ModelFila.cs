@@ -1,5 +1,4 @@
-﻿using Android.Database;
-using ENT;
+﻿using ENT;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

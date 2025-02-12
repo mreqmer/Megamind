@@ -19,7 +19,10 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout>
-                        <Image Source="{Binding Color}"></Image>
+                        <Image Source="rojo.png"></Image>
+                        <Image Source="rojo.png"></Image>
+                        <Image Source="rojo.png"></Image>
+                        <Image Source="rojo.png"></Image>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
