@@ -9,24 +9,66 @@
         <vmodel:VMJuego/>
     </ContentPage.BindingContext>
 
-    <Grid>
+    <Grid RowSpacing="10" Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
 
-        <CollectionView Grid.Row="0"
-                ItemsSource="{Binding Combinacion}">
+        <CollectionView
+                Grid.Row="0"
+                MaximumHeightRequest="100"
+                BackgroundColor="Blue">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
+                    <HorizontalStackLayout>
+                        
+                        <Image Source="rojo.png" MaximumHeightRequest="1"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView Grid.Row="1"
+                        BackgroundColor="Red">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Horizontal" Span="1"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
                     <StackLayout>
-                        <Image Source="rojo.png"></Image>
-                        <Image Source="rojo.png"></Image>
-                        <Image Source="rojo.png"></Image>
-                        <Image Source="rojo.png"></Image>
+                        
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <StackLayout Grid.Row="2" BackgroundColor="Green" VerticalOptions="FillAndExpand">
+            <CollectionView BackgroundColor="#b98d66" 
+                    VerticalOptions="FillAndExpand"
+                        HeightRequest="150"
+                        WidthRequest="500">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout>
+                        <Label Text="fdkfsñ"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        </StackLayout>
+
     </Grid>
+
+   
+    
+    
+    
 </ContentPage>
