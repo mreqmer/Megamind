@@ -25,7 +25,7 @@ namespace MegamindMAUI.VM
             new ModelFila(),
             new ModelFila(),
             new ModelFila()
-        }
+        };
         private ObservableCollection<Ficha> tablero = new ObservableCollection<Ficha>
         {
             new Ficha("negro"),
