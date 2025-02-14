@@ -13,9 +13,27 @@ namespace MegamindMAUI.Model
         //TODO: Implementar propiedades de la fila
         #region ATRIBUTOS
         private int id;
-        private ObservableCollection<Ficha> juego;
-        private ObservableCollection<Pisticha> pistaPropia;
-        private ObservableCollection<Pisticha> pistaRival;
+        private ObservableCollection<Ficha> juego = new ObservableCollection<Ficha>
+        {
+            new Ficha("nada"),
+            new Ficha("nada"),
+            new Ficha("nada"),
+            new Ficha("nada")
+        };
+        private ObservableCollection<Pisticha> pistaPropia = new ObservableCollection<Pisticha>
+        {
+            new Pisticha("nada"),
+            new Pisticha("nada"),
+            new Pisticha("nada"),
+            new Pisticha("nada")
+        };
+        private ObservableCollection<Pisticha> pistaRival = new ObservableCollection<Pisticha>
+        {
+            new Pisticha("nada"),
+            new Pisticha("nada"),
+            new Pisticha("nada"),
+            new Pisticha("nada")
+        };
         private bool esJugable;
         #endregion
 
