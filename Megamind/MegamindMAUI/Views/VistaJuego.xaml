@@ -15,24 +15,27 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
-
+        <!--Fila con la combinacion para ganar-->
         <CollectionView
                 Grid.Row="0"
                 MaximumHeightRequest="100"
-                BackgroundColor="Blue">
+                BackgroundColor="Blue"
+                 ItemsSource="{Binding Combinacion}"
+                HorizontalOptions="Center"
+                >
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="10" VerticalItemSpacing="0"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <HorizontalStackLayout>
-                        
-                        <Image Source="rojo.png" MaximumHeightRequest="1"/>
+                        <Image Source="{Binding FichaColor}" MaximumHeightRequest="75"/>
                     </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
+        
+        <!--Fila para las fichas en juego-->
         <CollectionView Grid.Row="1"
                         BackgroundColor="Red">
             <CollectionView.ItemsLayout>
@@ -46,19 +49,21 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
+        
+        <!--Contenedor con las fichas posibles para jugar-->
         <StackLayout Grid.Row="2" BackgroundColor="Green" VerticalOptions="FillAndExpand">
             <CollectionView BackgroundColor="#b98d66" 
                     VerticalOptions="FillAndExpand"
                         HeightRequest="150"
-                        WidthRequest="500">
+                        WidthRequest="500"
+                        ItemsSource="{Binding Tablero}">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                <GridItemsLayout Orientation="Vertical" Span="4" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout>
-                        <Label Text="fdkfsñ"/>
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <Image Source="{Binding FichaColor}" HeightRequest="55"/>
                     </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

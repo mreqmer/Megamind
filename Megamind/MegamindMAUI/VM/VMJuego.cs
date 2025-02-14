@@ -13,7 +13,19 @@ namespace MegamindMAUI.VM
     {
         //TODO: Implementar propiedades del juego
         #region ATRIBUTOS
-        private ObservableCollection<ModelFila> filasJuego;
+        private ObservableCollection<ModelFila> filasJuego = new ObservableCollection<ModelFila>
+        {
+            new ModelFila(),
+            new ModelFila(),
+            new ModelFila(),
+            new ModelFila(),
+            new ModelFila(),
+            new ModelFila(),
+            new ModelFila(),
+            new ModelFila(),
+            new ModelFila(),
+            new ModelFila()
+        }
         private ObservableCollection<Ficha> tablero = new ObservableCollection<Ficha>
         {
             new Ficha("negro"),
