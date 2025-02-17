@@ -49,7 +49,7 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
-            <Grid BackgroundColor="#b98d66" Grid.Row="0" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="0" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[9].EsJugable}">
                 <CollectionView Grid.Column="0"
                                 Margin="80,0,0,0"
                                 MaximumHeightRequest="80"
@@ -116,7 +116,7 @@
             </Grid>
 
             <!-- Colecciones de fichas -->
-            <Grid BackgroundColor="#b98d66" Grid.Row="1" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="1" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[8].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -182,7 +182,7 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="#b98d66" Grid.Row="2" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="2" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[7].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -248,7 +248,7 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="#b98d66" Grid.Row="3" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="3" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[6].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -314,7 +314,7 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="#b98d66" Grid.Row="4" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="4" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[5].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -380,7 +380,7 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="#b98d66" Grid.Row="5" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="5" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[4].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -446,7 +446,7 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="#b98d66" Grid.Row="6" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="6" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[3].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -512,7 +512,7 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="#b98d66" Grid.Row="7" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="7" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[2].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -578,7 +578,7 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="#b98d66" Grid.Row="8" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="#b98d66" Grid.Row="8" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[1].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -644,7 +644,7 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="Green" Grid.Row="9" ColumnDefinitions="*,*,*">
+            <Grid BackgroundColor="Green" Grid.Row="9" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[0].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -662,16 +662,30 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                <Button Grid.Column="1"
+                        Text="Jugar"
+                        IsVisible="True"
+                        BackgroundColor="#cc4e00"
+                        TextColor="White"
+                        FontSize="18"
+                        Padding="10"
+                        CornerRadius="15"
+                        BorderColor="#993a00"
+                        BorderWidth="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        />
 
                 <!-- Segundo CollectionView -->
-                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
-          AbsoluteLayout.LayoutFlags="All"
-          VerticalOptions="Center"
-          HorizontalOptions="Center"
-          RowSpacing="15"
-          ColumnSpacing="15"
-          RowDefinitions="*,*"
-          ColumnDefinitions="*,*">
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08" 
+                      IsVisible="False"
+                      AbsoluteLayout.LayoutFlags="All"
+                      VerticalOptions="Center"
+                      HorizontalOptions="Center"
+                      RowSpacing="15"
+                      ColumnSpacing="15"
+                      RowDefinitions="*,*"
+                      ColumnDefinitions="*,*">
                     <Image Grid.Row="0" Grid.Column="0"
                Source="{Binding FilasJuego[0].PistaPropia[0].FichaColor}" 
                MaximumHeightRequest="15" Margin="0,0,0,0"/>
