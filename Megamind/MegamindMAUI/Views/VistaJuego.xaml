@@ -15,13 +15,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <!--Fila con la combinacion para ganar-->
+
+        <!-- Fila con la combinación para ganar -->
         <CollectionView Grid.Row="0"
-                MaximumHeightRequest="80"
-                BackgroundColor="Blue"
-                 ItemsSource="{Binding Combinacion}"
-                HorizontalOptions="Center"
-                >
+                        MaximumHeightRequest="80"
+                        BackgroundColor="Blue"
+                        ItemsSource="{Binding Combinacion}"
+                        HorizontalOptions="Center">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="10" VerticalItemSpacing="0"/>
             </CollectionView.ItemsLayout>
@@ -33,8 +33,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        
-        <!--Fila para las fichas en juego-->
+
+        <!-- Fila para las fichas en juego -->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
@@ -51,10 +51,9 @@
 
             <Grid BackgroundColor="#b98d66" Grid.Row="0" ColumnDefinitions="*,*,*">
                 <CollectionView Grid.Column="0"
-                                BackgroundColor="red"
-                                Margin="5,0,0,0"
+                                Margin="80,0,0,0"
                                 MaximumHeightRequest="80"
-                                ItemsSource="{Binding FilasJuego[0].Juego}"
+                                ItemsSource="{Binding FilasJuego[9].Juego}"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="CenterAndExpand">
                     <CollectionView.ItemsLayout>
@@ -70,216 +69,650 @@
                 </CollectionView>
 
                 <!-- Segundo CollectionView -->
-                <CollectionView Grid.Column="1"
-                                BackgroundColor="Blue"
-                                MinimumHeightRequest="60"
-                                VerticalOptions="Center"
-                                ItemsSource="{Binding FilasJuego[0].PistaPropia}"
-                                HorizontalOptions="FillAndExpand"
-                                >
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal" Span="2" HorizontalItemSpacing="4" VerticalItemSpacing="0"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <HorizontalStackLayout HorizontalOptions="Start" BackgroundColor="Beige">
-                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="15" Margin="0"/>
-                            </HorizontalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+                      AbsoluteLayout.LayoutFlags="All"
+                      VerticalOptions="Center"
+                      HorizontalOptions="Center"
+                      RowSpacing="15"
+                      ColumnSpacing="15"
+                      RowDefinitions="*,*"
+                      ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+                           Source="{Binding FilasJuego[9].PistaPropia[0].FichaColor}" 
+                           MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+                           Source="{Binding FilasJuego[9].PistaPropia[1].FichaColor}" 
+                           MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+                           Source="{Binding FilasJuego[9].PistaPropia[2].FichaColor}" 
+                           MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+                           Source="{Binding FilasJuego[9].PistaPropia[3].FichaColor}" 
+                           MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
 
-                <!-- Tercer CollectionView -->
-                <CollectionView Grid.Column="2"
-                                BackgroundColor="Green"
-                                MaximumHeightRequest="60"
-                                ItemsSource="{Binding FilasJuego[0].PistaRival}"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="CenterAndExpand">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal" Span="2" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <HorizontalStackLayout HorizontalOptions="Center" Margin="10,0,0,0">
-                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="15" />
-                            </HorizontalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+                      AbsoluteLayout.LayoutFlags="All"
+                      VerticalOptions="Center"
+                      HorizontalOptions="Center"
+                      RowSpacing="15"
+                      ColumnSpacing="15"
+                      RowDefinitions="*,*"
+                      ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+                           Source="{Binding FilasJuego[9].PistaRival[0].FichaColor}" 
+                           MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+                           Source="{Binding FilasJuego[9].PistaRival[1].FichaColor}" 
+                           MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+                           Source="{Binding FilasJuego[9].PistaRival[2].FichaColor}" 
+                           MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+                           Source="{Binding FilasJuego[9].PistaRival[3].FichaColor}" 
+                           MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
             </Grid>
 
-
-            <CollectionView Grid.Row="1"
-                     BackgroundColor="Blue" 
-                                MaximumHeightRequest="60"
-                     ItemsSource="{Binding FilasJuego[1].Juego}">
-                
+            <!-- Colecciones de fichas -->
+            <Grid BackgroundColor="#b98d66" Grid.Row="1" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[8].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
-                
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <HorizontalStackLayout>
-                                <Image Source="{Binding FichaColor}" 
-                                MaximumHeightRequest="30"
-                                Margin="10,0,0,0"/>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <CollectionView Grid.Row="2"
-                     BackgroundColor="#b98d66" 
-                                MaximumHeightRequest="60"
-                     ItemsSource="{Binding FilasJuego[2].Juego}">   
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[8].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[8].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[8].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[8].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[8].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[8].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[8].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[8].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
+
+            <Grid BackgroundColor="#b98d66" Grid.Row="2" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[7].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <HorizontalStackLayout>
-                                <Image Source="{Binding FichaColor}" 
-                                MaximumHeightRequest="30"
-                                Margin="10,0,0,0"></Image>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <CollectionView Grid.Row="3"
-                     BackgroundColor="Blue" 
-         ItemsSource="{Binding FilasJuego[3].Juego}"
-                                MaximumHeightRequest="60">
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[7].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[7].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[7].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[7].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[7].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[7].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[7].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[7].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
+
+            <Grid BackgroundColor="#b98d66" Grid.Row="3" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[6].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <HorizontalStackLayout>
-                                <Image Source="{Binding FichaColor}" 
-                MaximumHeightRequest="30"
-                Margin="10,0,0,0"></Image>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <CollectionView Grid.Row="4"
-                     BackgroundColor="#b98d66" 
-                     ItemsSource="{Binding FilasJuego[4].Juego}"
-                                MaximumHeightRequest="60">
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[6].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[6].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[6].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[6].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[5].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[5].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[5].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[5].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
+
+            <Grid BackgroundColor="#b98d66" Grid.Row="4" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[5].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <HorizontalStackLayout>
-                                <Image Source="{Binding FichaColor}" 
-                                    MaximumHeightRequest="30"
-                                    Margin="10,0,0,0"></Image>          
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <CollectionView Grid.Row="5"
-                     BackgroundColor="Red" 
-                     ItemsSource="{Binding FilasJuego[5].Juego}"
-                                MaximumHeightRequest="60">
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[5].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[5].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[5].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[5].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[5].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[5].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[5].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[5].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
+
+            <Grid BackgroundColor="#b98d66" Grid.Row="5" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[4].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <HorizontalStackLayout>
-                                <Image Source="{Binding FichaColor}" 
-                                    MaximumHeightRequest="30"
-                                    Margin="10,0,0,0"></Image>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[4].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[4].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[4].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[4].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
 
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[4].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[4].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[4].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[4].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
 
-            <CollectionView Grid.Row="6"
-                     BackgroundColor="#b98d66" 
-                     ItemsSource="{Binding FilasJuego[6].Juego}"
-                            MaximumHeightRequest="60">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <HorizontalStackLayout>
-                            <Image Source="{Binding FichaColor}" 
-                                MaximumHeightRequest="30"
-                                Margin="10,0,0,0"></Image>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Grid BackgroundColor="#b98d66" Grid.Row="6" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[3].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <CollectionView Grid.Row="7"
-                     BackgroundColor="Red" 
-                     ItemsSource="{Binding FilasJuego[7].Juego}"
-                            MaximumHeightRequest="60">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <HorizontalStackLayout>
-                            <Image Source="{Binding FichaColor}" 
-                                MaximumHeightRequest="30"
-                                Margin="10,0,0,0"></Image>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[3].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[3].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[3].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[3].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
 
-            <CollectionView Grid.Row="8"
-                 BackgroundColor="#b98d66" 
-                 ItemsSource="{Binding FilasJuego[8].Juego}"
-                            MaximumHeightRequest="60">   
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <HorizontalStackLayout>
-                            <Image Source="{Binding FichaColor}" 
-                                MaximumHeightRequest="30"
-                                Margin="10,0,0,0"></Image>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[3].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[3].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[3].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[3].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
 
-            <CollectionView Grid.Row="9"
-                 BackgroundColor="Green" 
-                MaximumHeightRequest="60"
-                 ItemsSource="{Binding FilasJuego[9].Juego}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <HorizontalStackLayout>
-                            <Image Source="{Binding FichaColor}" 
-                                MaximumHeightRequest="30"
-                                Margin="10,0,0,0"></Image>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Grid BackgroundColor="#b98d66" Grid.Row="7" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[2].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[2].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[2].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[2].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[2].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[2].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[2].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[2].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[2].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
+
+            <Grid BackgroundColor="#b98d66" Grid.Row="8" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[1].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[1].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[1].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[1].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[1].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[1].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[1].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[1].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[1].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
+
+            <Grid BackgroundColor="Green" Grid.Row="9" ColumnDefinitions="*,*,*">
+                <CollectionView Grid.Column="0"
+                    Margin="80,0,0,0"
+                    MaximumHeightRequest="80"
+                    ItemsSource="{Binding FilasJuego[0].Juego}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[0].PistaPropia[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[0].PistaPropia[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[0].PistaPropia[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[0].PistaPropia[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+
+                <!-- Segundo CollectionView -->
+                <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
+          AbsoluteLayout.LayoutFlags="All"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+          RowSpacing="15"
+          ColumnSpacing="15"
+          RowDefinitions="*,*"
+          ColumnDefinitions="*,*">
+                    <Image Grid.Row="0" Grid.Column="0"
+               Source="{Binding FilasJuego[0].PistaRival[0].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                    <Image Grid.Row="0" Grid.Column="1"
+               Source="{Binding FilasJuego[0].PistaRival[1].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="0"
+               Source="{Binding FilasJuego[0].PistaRival[2].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                    <Image Grid.Row="1" Grid.Column="1"
+               Source="{Binding FilasJuego[0].PistaRival[3].FichaColor}" 
+               MaximumHeightRequest="15" Margin="0"/>
+                </Grid>
+            </Grid>
         </Grid>
 
-        <!--Contenedor con las fichas posibles para jugar-->
-
+        <!-- Contenedor con las fichas posibles para jugar -->
+        <!-- Tercera fila -->
         <CollectionView Grid.Row="2" BackgroundColor="#b98d66" 
                         VerticalOptions="FillAndExpand"
                         MaximumHeightRequest="130"
@@ -296,11 +729,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
     </Grid>
-
-   
-    
-    
-    
 </ContentPage>
