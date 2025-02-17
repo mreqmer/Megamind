@@ -34,7 +34,7 @@ namespace MegamindMAUI.Model
             new Pisticha("nada"),
             new Pisticha("nada")
         };
-        private bool esJugable;
+        private bool esJugable = false;
         #endregion
 
         #region PROPIEDADES
