@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MegamindMAUI.Views.VistaJuego"
              xmlns:vmodel="clr-namespace:MegamindMAUI.VM"
-             Title="VistaJuego"
              BackgroundColor="#e2b383">
     <ContentPage.BindingContext>
         <vmodel:VMJuego/>
@@ -19,7 +18,7 @@
         <!-- Fila con la combinación para ganar -->
         <CollectionView Grid.Row="0"
                         MaximumHeightRequest="80"
-                        BackgroundColor="Blue"
+                        BackgroundColor="#b98d66"
                         ItemsSource="{Binding Combinacion}"
                         HorizontalOptions="Center">
             <CollectionView.ItemsLayout>
@@ -644,13 +643,16 @@
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="Green" Grid.Row="9" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[0].EsJugable}">
+            <Grid BackgroundColor="Green" Grid.Row="9" ColumnDefinitions="*,*,*" IsEnabled="False">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
                     ItemsSource="{Binding FilasJuego[0].Juego}"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="CenterAndExpand">
+                    VerticalOptions="CenterAndExpand"
+                    SelectionMode="Single"
+                    SelectedItem=""
+                                >
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
@@ -664,7 +666,8 @@
                 </CollectionView>
                 <Button Grid.Column="1"
                         Text="Jugar"
-                        IsVisible="True"
+                        IsVisible="{Binding EsPistaVisible}"
+                        Command="{Binding BtnJugarCommand}"
                         BackgroundColor="#cc4e00"
                         TextColor="White"
                         FontSize="18"
@@ -685,42 +688,43 @@
                       RowSpacing="15"
                       ColumnSpacing="15"
                       RowDefinitions="*,*"
-                      ColumnDefinitions="*,*">
+                      ColumnDefinitions="*,*"
+                      >
                     <Image Grid.Row="0" Grid.Column="0"
-               Source="{Binding FilasJuego[0].PistaPropia[0].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                       Source="{Binding FilasJuego[0].PistaPropia[0].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0,0,0,0"/>
                     <Image Grid.Row="0" Grid.Column="1"
-               Source="{Binding FilasJuego[0].PistaPropia[1].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[0].PistaPropia[1].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                     <Image Grid.Row="1" Grid.Column="0"
-               Source="{Binding FilasJuego[0].PistaPropia[2].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[0].PistaPropia[2].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                     <Image Grid.Row="1" Grid.Column="1"
-               Source="{Binding FilasJuego[0].PistaPropia[3].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[0].PistaPropia[3].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                 </Grid>
 
                 <!-- Segundo CollectionView -->
                 <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
-          AbsoluteLayout.LayoutFlags="All"
-          VerticalOptions="Center"
-          HorizontalOptions="Center"
-          RowSpacing="15"
-          ColumnSpacing="15"
-          RowDefinitions="*,*"
-          ColumnDefinitions="*,*">
+                      AbsoluteLayout.LayoutFlags="All"
+                      VerticalOptions="Center"
+                      HorizontalOptions="Center"
+                      RowSpacing="15"
+                      ColumnSpacing="15"
+                      RowDefinitions="*,*"
+                      ColumnDefinitions="*,*">
                     <Image Grid.Row="0" Grid.Column="0"
-               Source="{Binding FilasJuego[0].PistaRival[0].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                       Source="{Binding FilasJuego[0].PistaRival[0].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0,0,0,0"/>
                     <Image Grid.Row="0" Grid.Column="1"
-               Source="{Binding FilasJuego[0].PistaRival[1].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[0].PistaRival[1].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                     <Image Grid.Row="1" Grid.Column="0"
-               Source="{Binding FilasJuego[0].PistaRival[2].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[0].PistaRival[2].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                     <Image Grid.Row="1" Grid.Column="1"
-               Source="{Binding FilasJuego[0].PistaRival[3].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[0].PistaRival[3].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                 </Grid>
             </Grid>
         </Grid>

@@ -35,6 +35,7 @@ namespace MegamindMAUI.Model
             new Pisticha("nada")
         };
         private bool esJugable = false;
+        private bool esPistaVisible;
         #endregion
 
         #region PROPIEDADES
@@ -42,7 +43,25 @@ namespace MegamindMAUI.Model
         public ObservableCollection<Ficha> Juego { get { return juego; } set { juego = value; } }
         public ObservableCollection<Pisticha > PistaPropia { get { return pistaPropia; } set { pistaPropia = value; } }
         public ObservableCollection<Pisticha> PistaRival { get { return pistaRival; } set { pistaRival = value; } }
-        public bool EsJugable { get { return esJugable; } set { esJugable = value; } }
+        public bool EsJugable 
+        { 
+            get 
+            {
+                return esJugable; 
+            } set 
+            {
+                esJugable = value;
+                if (esJugable)
+                {
+                    esPistaVisible = false;
+                }
+                else
+                {
+                    esPistaVisible = true;
+                }
+            }
+        }
+        public bool EsPistaVisible { get { return esPistaVisible; } }
         #endregion
 
         #region CONSTRUCTORES
