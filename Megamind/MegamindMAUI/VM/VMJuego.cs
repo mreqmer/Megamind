@@ -44,14 +44,14 @@ namespace MegamindMAUI.VM
             new Ficha("nada"),
             new Ficha("nada")
         };
-
+        public string colorSeleccionado="nada"; 
     #endregion
 
     #region PROPIEDADES
     public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
         public ObservableCollection<Ficha> Tablero { get { return tablero; } }
         public ObservableCollection<Ficha> Combinacion { get { return combinacion;} set { combinacion = value; } }
-
+        public string ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; } }
         #endregion
 
         #region CONSTRUCTORES
