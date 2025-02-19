@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MegamindMAUI.VM.Utils;
 
 namespace MegamindMAUI.VM
 {
@@ -25,7 +26,7 @@ namespace MegamindMAUI.VM
             new ModelFila(),
             new ModelFila(),
             new ModelFila()
-        }
+        };
         private ObservableCollection<Ficha> tablero = new ObservableCollection<Ficha>
         {
             new Ficha("negro"),
@@ -44,14 +45,18 @@ namespace MegamindMAUI.VM
             new Ficha("nada"),
             new Ficha("nada")
         };
+        private string colorSeleccionado="nada";
+        private DelegateCommand btnJugarCommand;
+        private int ronda = 0;
+        #endregion
 
-    #endregion
-
-    #region PROPIEDADES
-    public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
+        #region PROPIEDADES
+        public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
         public ObservableCollection<Ficha> Tablero { get { return tablero; } }
         public ObservableCollection<Ficha> Combinacion { get { return combinacion;} set { combinacion = value; } }
-
+        public string ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; } }
+        public DelegateCommand BtnJugarCommand { get { return btnJugarCommand; } }
+        public int Ronda { get { return ronda; } set { ronda = value; } }
         #endregion
 
         #region CONSTRUCTORES
@@ -59,8 +64,22 @@ namespace MegamindMAUI.VM
         public VMJuego()
         {
 
+            btnJugarCommand = new DelegateCommand(btnJugarCommandExecute, btnJugarCommandCanExecute);
         }
 
+        #endregion
+
+        #region COMMAND
+
+        private bool btnJugarCommandCanExecute()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async void btnJugarCommandExecute()
+        {
+            filasJuego[ronda].EsJugable = false;
+        }
         #endregion
     }
 }
