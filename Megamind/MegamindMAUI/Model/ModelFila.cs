@@ -10,7 +10,6 @@ namespace MegamindMAUI.Model
 {
     public class ModelFila
     {
-        //TODO: Implementar propiedades de la fila
         #region ATRIBUTOS
         private int id;
         private ObservableCollection<Ficha> juego = new ObservableCollection<Ficha>
@@ -66,8 +65,8 @@ namespace MegamindMAUI.Model
 
         #region CONSTRUCTORES
         public ModelFila() 
-        { 
-            
+        {
+
         }
         public ModelFila(int id, ObservableCollection<Ficha> juego, ObservableCollection<Pisticha> pistaPropia, ObservableCollection<Pisticha> pistaRival)
         {
