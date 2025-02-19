@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MegamindMAUI.VM.Utils;
 
 namespace MegamindMAUI.VM
 {
@@ -44,14 +45,18 @@ namespace MegamindMAUI.VM
             new Ficha("nada"),
             new Ficha("nada")
         };
-        public string colorSeleccionado="nada"; 
-    #endregion
+        private string colorSeleccionado="nada";
+        private DelegateCommand btnJugarCommand;
+        private int ronda = 0;
+        #endregion
 
-    #region PROPIEDADES
-    public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
+        #region PROPIEDADES
+        public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
         public ObservableCollection<Ficha> Tablero { get { return tablero; } }
         public ObservableCollection<Ficha> Combinacion { get { return combinacion;} set { combinacion = value; } }
         public string ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; } }
+        public DelegateCommand BtnJugarCommand { get { return btnJugarCommand; } }
+        public int Ronda { get { return ronda; } set { ronda = value; } }
         #endregion
 
         #region CONSTRUCTORES
@@ -59,6 +64,7 @@ namespace MegamindMAUI.VM
         public VMJuego()
         {
 
+            btnJugarCommand = new DelegateCommand(btnJugarCommandExecute, btnJugarCommandCanExecute);
         }
 
         #endregion
@@ -67,8 +73,12 @@ namespace MegamindMAUI.VM
 
         private bool btnJugarCommandCanExecute()
         {
+<<<<<<< HEAD
             //TODO
             return true;
+=======
+            throw new NotImplementedException();
+>>>>>>> 98be680 (ENT Jugador, Y Actualizacion VMJuego)
         }
 
         private async void btnJugarCommandExecute()
