@@ -73,7 +73,7 @@ namespace MegamindMAUI.VM
 
         private bool btnJugarCommandCanExecute()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         private async void btnJugarCommandExecute()
