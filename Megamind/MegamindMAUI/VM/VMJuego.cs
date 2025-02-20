@@ -73,12 +73,7 @@ namespace MegamindMAUI.VM
 
         private bool btnJugarCommandCanExecute()
         {
-<<<<<<< HEAD
-            //TODO
-            return true;
-=======
             throw new NotImplementedException();
->>>>>>> 98be680 (ENT Jugador, Y Actualizacion VMJuego)
         }
 
         private async void btnJugarCommandExecute()
