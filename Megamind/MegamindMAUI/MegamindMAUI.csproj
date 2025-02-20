@@ -66,6 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\VistaInicio.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\VistaJuego.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,4 +1,4 @@
-﻿using ENT;
+using ENT;
 using MegamindMAUI.Model;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace MegamindMAUI.VM
         #region ATRIBUTOS
         private ObservableCollection<ModelFila> filasJuego = new ObservableCollection<ModelFila>
         {
-            new ModelFila(),
+            new ModelFila(true),
             new ModelFila(),
             new ModelFila(),
             new ModelFila(),
@@ -61,6 +61,20 @@ namespace MegamindMAUI.VM
 
         }
 
+        #endregion
+
+        #region COMMAND
+
+        private bool btnJugarCommandCanExecute()
+        {
+            //TODO
+            return true;
+        }
+
+        private async void btnJugarCommandExecute()
+        {
+            filasJuego[ronda].EsJugable = false;
+        }
         #endregion
     }
 }

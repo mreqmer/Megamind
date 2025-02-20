@@ -69,6 +69,10 @@ namespace MegamindMAUI.Model
         { 
             
         }
+        public ModelFila(bool esJugable)
+        {
+            this.esJugable = esJugable;
+        }
         public ModelFila(int id, ObservableCollection<Ficha> juego, ObservableCollection<Pisticha> pistaPropia, ObservableCollection<Pisticha> pistaRival)
         {
             this.id = id;
