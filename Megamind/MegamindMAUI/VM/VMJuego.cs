@@ -1,4 +1,4 @@
-﻿using ENT;
+using ENT;
 using MegamindMAUI.Model;
 using System;
 using System.Collections.Generic;
