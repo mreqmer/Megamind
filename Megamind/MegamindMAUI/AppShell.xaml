@@ -10,11 +10,15 @@
     <!--<ShellContent
         ContentTemplate="{DataTemplate local:VistaInicio}"
         Route="Inicio" />-->
+<<<<<<< Updated upstream
 
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaSalas}"
         Route="Salas" />
 
+=======
+    
+>>>>>>> Stashed changes
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
         Route="Juego" />
