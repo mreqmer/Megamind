@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MegamindMAUI.Views.VistaSalas"
+             xmlns:vmodel="clr-namespace:MegamindMAUI.VM">
+    <ContentPage.BindingContext>
+        <vmodel:VMSalas/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <!-- Titulo -->
+            <Label Text="Salas de Juego" 
+                   FontSize="24" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Start" />
+
+            <!-- CollectionView para mostrar las salas -->
+            <CollectionView ItemsSource="{Binding Salas}"
+                            MaximumWidthRequest="750"
+                            BackgroundColor="#fafafa"
+                            
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" ColumnDefinitions="*, Auto" RowDefinitions="*, *">
+
+                            <!-- Nombre del Jugador -->
+                            <Label Margin="10,0,0,0" 
+                                   Grid.Row="0" Grid.Column="0"
+                                   FontSize="18"
+                                   VerticalOptions="Center" 
+                                   HorizontalOptions="Start">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="Sala: {0}">
+                                        <Binding Path="Sala" />
+                                    </MultiBinding>
+                                </Label.Text>
+
+                            </Label>
+
+                            <!-- Número de la Sala -->
+                            <Label Margin="10,0,0,0"
+                                   Grid.Row="1" Grid.Column="0"
+                                   FontSize="14"
+                                   VerticalOptions="Center" 
+                                   HorizontalOptions="Start">
+                                <Label.Text>
+
+                                    <Binding Path="Nombre" />
+
+                                </Label.Text>
+
+                            </Label>
+
+                            <!-- Botón para unirse -->
+                            <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                                    Margin="0,0,15,0"
+                                    Text="Unirse"
+                                    FontSize="12"
+                                    Command="{Binding BindingContext.BtnNuevaSalaCommand}"
+                                    VerticalOptions="Center" 
+                                    HorizontalOptions="End"
+                                    BackgroundColor="#3f4459"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
