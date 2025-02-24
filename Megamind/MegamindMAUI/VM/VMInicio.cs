@@ -71,7 +71,7 @@ namespace MegamindMAUI.VM
         /// </summary>
         public async void btnPlayCommandExecute()
         {
-            //TODO
+            await Shell.Current.GoToAsync("///Juego");
         }
         #endregion
 
