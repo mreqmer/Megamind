@@ -8,5 +8,8 @@ namespace MegamindMAUI.VM
 {
     public class VMFinal
     {
+
+
+
     }
 }

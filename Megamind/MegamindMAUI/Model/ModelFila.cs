@@ -33,8 +33,8 @@ namespace MegamindMAUI.Model
             new Pisticha("nada"),
             new Pisticha("nada")
         };
-        private bool esJugable = false;
-        private bool esPistaVisible = true;
+        private bool esJugable = true;
+        private bool esPistaVisible = false;
         #endregion
 
         #region PROPIEDADES
@@ -68,9 +68,9 @@ namespace MegamindMAUI.Model
         {
 
         }
-        public ModelFila(bool esJugable)
+        public ModelFila(int id)
         {
-            this.esJugable = esJugable;
+            this.id = id;
         }
         public ModelFila(int id, ObservableCollection<Ficha> juego, ObservableCollection<Pisticha> pistaPropia, ObservableCollection<Pisticha> pistaRival)
         {
