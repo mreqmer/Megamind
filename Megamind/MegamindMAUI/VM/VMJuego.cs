@@ -18,22 +18,23 @@ namespace MegamindMAUI.VM
         private ObservableCollection<ModelFila> filasJuego = new ObservableCollection<ModelFila>();
         private ObservableCollection<Ficha> tablero = new ObservableCollection<Ficha>();
         private ObservableCollection<Ficha> combinacion = new ObservableCollection<Ficha>();
-        private string colorSeleccionado="nada";
-        private Ficha ficha = new Ficha();
+        private Ficha colorSeleccionado;
+        private Ficha ficha;
         private int ronda = 0;
         private DelegateCommand btnJugarCommand;
+        private Ficha fichaACambiar;
         #endregion
 
         #region PROPIEDADES
         public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
         public ObservableCollection<Ficha> Tablero { get { return tablero; } }
         public ObservableCollection<Ficha> Combinacion { get { return combinacion;} set { combinacion = value; } }
-        public string ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; } }
+        public Ficha ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; OnPropertyChanged(nameof(ColorSeleccionado)); } }
         public int Ronda { get { return ronda; } set { ronda = value; } }
         public DelegateCommand BtnJugarCommand { get { return btnJugarCommand; } }
 
-        //public Ficha Ficha { get { return ficha; } set { ficha. = colorSeleccionado; } }
-        public Object var { set { var = value; } }
+        public Ficha Ficha { get { return ficha; } set { ficha = colorSeleccionado; OnPropertyChanged(nameof(Ficha)); } }
+        public Ficha FichaACambiar { get { return fichaACambiar; } set { fichaACambiar = value; OnPropertyChanged("fichaACambiar"); cambiaficha(fichaACambiar); } }
         #endregion
 
         #region CONSTRUCTORES
@@ -131,6 +132,12 @@ namespace MegamindMAUI.VM
                 } else {fila.EsJugable = false; }
                 OnPropertyChanged("FilasJuego");
             }
+        }
+
+        private void cambiaficha(Ficha ficha)
+        {
+            int index = filasJuego[ronda].Juego.IndexOf(ficha);
+            filasJuego[9-ronda].Juego[index].FichaColor = colorSeleccionado.FichaColor;
         }
         #endregion
     }
