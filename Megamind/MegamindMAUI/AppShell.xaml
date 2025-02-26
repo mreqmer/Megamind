@@ -13,14 +13,21 @@
 <<<<<<< Updated upstream
 
     <ShellContent
+        ContentTemplate="{DataTemplate local:VistaJuego}"
+        Route="Juego" />
+    
+    <ShellContent
         ContentTemplate="{DataTemplate local:VistaSalas}"
         Route="Salas" />
 
+<<<<<<< HEAD
 =======
     
 >>>>>>> Stashed changes
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
         Route="Juego" />
+=======
+>>>>>>> origin/main
 
 </Shell>

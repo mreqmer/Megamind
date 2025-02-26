@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MegamindMAUI.Model.Utils;
+
 namespace ENT
 {
 
-    public class Ficha
+    public class Ficha : ClsVMBase
     {
         #region ATRIBUTOS
         private List<string> colores = new List<string>{
@@ -19,7 +21,7 @@ namespace ENT
 
         #region PROPIEDADES
         public List<string> Colores { get { return colores; } }
-        public String FichaColor { get { return fichaColor; } set { fichaColor = value; } }
+        public String FichaColor { get { return fichaColor; } set { fichaColor = value; OnPropertyChanged("FichaColor"); } }
         #endregion
 
         #region CONSTRUCTORES

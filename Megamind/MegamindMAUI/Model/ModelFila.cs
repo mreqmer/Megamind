@@ -1,4 +1,5 @@
 using ENT;
+using MegamindMAUI.VM.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MegamindMAUI.Model
 {
-    public class ModelFila
+    public class ModelFila : ClsVMBase
     {
         #region ATRIBUTOS
         private int id;
@@ -39,7 +40,7 @@ namespace MegamindMAUI.Model
 
         #region PROPIEDADES
         public int Id { get {  return id; } set { id = value; } }
-        public ObservableCollection<Ficha> Juego { get { return juego; } set { juego = value; } }
+        public ObservableCollection<Ficha> Juego { get { return juego; } set { juego = value; OnPropertyChanged(nameof(Juego)); } }
         public ObservableCollection<Pisticha > PistaPropia { get { return pistaPropia; } set { pistaPropia = value; } }
         public ObservableCollection<Pisticha> PistaRival { get { return pistaRival; } set { pistaRival = value; } }
         public bool EsJugable 
