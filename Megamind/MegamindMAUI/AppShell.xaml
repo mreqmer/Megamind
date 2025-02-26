@@ -9,15 +9,17 @@
 
     <!--<ShellContent
         ContentTemplate="{DataTemplate local:VistaInicio}"
-        Route="Inicio" />-->
+        Route="Inicio" />
 
+    <ShellContent
+    ContentTemplate="{DataTemplate local:VistaSalas}"
+    Route="Salas" />-->
+    
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
         Route="Juego" />
     
-    <ShellContent
-        ContentTemplate="{DataTemplate local:VistaSalas}"
-        Route="Salas" />
+    
 
 
 </Shell>

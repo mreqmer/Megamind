@@ -137,8 +137,20 @@ namespace MegamindMAUI.VM
         private void cambiaficha(Ficha ficha)
         {
             int index = filasJuego[ronda].Juego.IndexOf(ficha);
-            filasJuego[9-ronda].Juego[index].FichaColor = colorSeleccionado.FichaColor;
+            filasJuego[ronda].Juego[index].FichaColor = colorSeleccionado.FichaColor;
         }
+
+        //private void cambiaPistichaPropia()
+        //{
+
+        //    for (int i = 0; i < filasJuego.Juego.lenght(); int++)
+        //    {
+        //        //filasJuego[ronda].Juego[i];
+        //    }
+
+            
+
+        //}
         #endregion
     }
 }
