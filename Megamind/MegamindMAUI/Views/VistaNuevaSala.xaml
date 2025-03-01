@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MegamindMAUI.Views.VistaNuevaSala"
+             xmlns:vmodel="clr-namespace:MegamindMAUI.VM"
+             Background="#7cacdf"
+             Title="VistaNuevaSala"
+             Padding="20">
+
+    <ContentPage.BindingContext>
+        <vmodel:VMNuevaSala/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*,Auto,Auto,Auto,*" 
+          RowSpacing="15"
+          VerticalOptions="Center">
+
+        <!-- Logo responsivo -->
+        <Image Grid.Row="1"
+               Source="megamindinicio.png"
+               MaximumHeightRequest="250"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <!-- Contenedor de campos de entrada -->
+        <VerticalStackLayout Grid.Row="2"
+                            Spacing="15"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+
+            <!-- Campo nombre de usuario -->
+            <Frame BackgroundColor="#D3D3D3"
+                   CornerRadius="20"
+                   Padding="0"
+                   HasShadow="True"
+                   WidthRequest="200"
+                   HeightRequest="50">
+                <Entry Placeholder="Nombre de usuario"
+                       Text="{Binding NombreUsuario}"
+                       FontSize="16"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"/>
+            </Frame>
+
+            <!-- Campo nombre de sala -->
+            <Frame BackgroundColor="#D3D3D3"
+                   CornerRadius="20"
+                   Padding="0"
+                   HasShadow="True"
+                   WidthRequest="200"
+                   HeightRequest="50">
+                <Entry Placeholder="Nombre de sala (4 letras)"
+                       Text="{Binding NombreSala}"
+                       FontSize="16"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       MaxLength="4"/>
+            </Frame>
+        </VerticalStackLayout>
+
+        <!-- Botón crear sala -->
+        <Button Grid.Row="3"
+                Text="Crear Sala"
+                Command="{Binding BtnCrearSalaCommand}"
+                FontSize="16"
+                FontAttributes="Bold"
+                BackgroundColor="#3f4459"
+                WidthRequest="200"
+                HeightRequest="50"
+                CornerRadius="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+            <Button.Shadow>
+                <Shadow Brush="Black" 
+                        Opacity="0.3" 
+                        Offset="3,3" 
+                        Radius="5"/>
+            </Button.Shadow>
+        </Button>
+    </Grid>
+</ContentPage>

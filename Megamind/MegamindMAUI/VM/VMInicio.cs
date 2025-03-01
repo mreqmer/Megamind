@@ -12,7 +12,8 @@ namespace MegamindMAUI.VM
     {
         #region Atributos
         private string username = "";
-        private DelegateCommand btnInicioCommand;
+        private DelegateCommand btnNuevaSalaCommand;
+        private DelegateCommand btnUnirseSalaCommand;
         private double opacidadBtnInicio = 1;
         private bool esInicioVisible = true;
         private DelegateCommand btnPlayCommand;
@@ -22,7 +23,8 @@ namespace MegamindMAUI.VM
 
         #region Propiedades
         public string Username { get { return username; } set { username = value; OnPropertyChanged(nameof(Username)); BtnPlayCommand.RaiseCanExecuteChanged(); } }
-        public DelegateCommand BtnInicioCommand { get { return btnInicioCommand; } }
+        public DelegateCommand BtnNuevaSalaCommand { get { return btnNuevaSalaCommand; } }
+        public DelegateCommand BtnUnirseSalaCommand { get { return btnUnirseSalaCommand; } }
         public double OpacidadBtnInicio { get { return opacidadBtnInicio; } set { opacidadBtnInicio = value; } }
         public bool EsInicioVisible { get { return esInicioVisible; } }
         public DelegateCommand BtnPlayCommand { get { return btnPlayCommand; } }
@@ -33,7 +35,8 @@ namespace MegamindMAUI.VM
         #region Constructores
         public VMInicio()
         {
-            btnInicioCommand = new DelegateCommand(btnInicioCommandExecute);
+            btnNuevaSalaCommand = new DelegateCommand(btnNuevaSalaCommandExecute);
+            btnUnirseSalaCommand = new DelegateCommand(btnUnirseSalaCommandExecute);
             btnPlayCommand = new DelegateCommand(btnPlayCommandExecute, btnPlayCommandCanExecute);
         }
         #endregion
@@ -41,9 +44,17 @@ namespace MegamindMAUI.VM
         #region Commands
 
         /// <summary>
+        /// Botón para ir a la VistaNuevaSala
+        /// </summary>
+        public async void btnNuevaSalaCommandExecute()
+        {
+            await Shell.Current.GoToAsync("///NuevaSala");
+        }
+
+        /// <summary>
         /// boton inicio, que al ser pulsado hace una animacion de fadeout y empieza una de fadein para el input del nombre y el play
         /// </summary>
-        public async void btnInicioCommandExecute()
+        public async void btnUnirseSalaCommandExecute()
         {
             Console.WriteLine("pulsado");
             esInicioVisible = false;
@@ -71,7 +82,7 @@ namespace MegamindMAUI.VM
         /// </summary>
         public async void btnPlayCommandExecute()
         {
-            await Shell.Current.GoToAsync("///Juego");
+            await Shell.Current.GoToAsync("///Salas");
         }
         #endregion
 

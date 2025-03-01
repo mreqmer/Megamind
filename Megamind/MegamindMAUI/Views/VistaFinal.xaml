@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MegamindMAUI.Views.VistaFinal"
+             xmlns:vmodel="clr-namespace:MegamindMAUI.VM"
+             Background="#7cacdf"
+             Title="Fin del Juego">
+
+    <ContentPage.BindingContext>
+        <vmodel:VMFinal/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          VerticalOptions="FillAndExpand"
+          Padding="20">
+
+        <!-- Titulo -->
+        <Label Text="¡Juego Terminado!" 
+               FontSize="28"
+               TextColor="Black"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,30"/>
+
+        <!-- Contenedor principal -->
+        <Frame Grid.Row="1"
+               CornerRadius="20"
+               BackgroundColor="#E6FFFFFF"
+               HasShadow="True"
+               Padding="20"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+
+            <VerticalStackLayout Spacing="25">
+                
+                <!-- Ganador -->
+                <Frame BackgroundColor="#FFD700" 
+                       CornerRadius="15"
+                       Padding="15"
+                       HasShadow="True">
+                    <VerticalStackLayout>
+                        <Label Text="Ganador"
+                               FontSize="18"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                        
+                        <Label Text="{Binding GanadorNombre}"
+                               FontSize="20"
+                               TextColor="Black"
+                               HorizontalOptions="Center"/>
+                        
+                        <Label Text="{Binding GanadorPuntuacion, StringFormat='Puntos: {0}'}"
+                               FontSize="16"
+                               TextColor="Black"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Perdedor -->
+                <Frame BackgroundColor="#D3D3D3"
+                       CornerRadius="15"
+                       Padding="15"
+                       HasShadow="True">
+                    <VerticalStackLayout>
+                        <Label Text="Perdedor"
+                               FontSize="18"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                        
+                        <Label Text="{Binding PerdedorNombre}"
+                               FontSize="20"
+                               TextColor="Black"
+                               HorizontalOptions="Center"/>
+                        
+                        <Label Text="{Binding PerdedorPuntuacion, StringFormat='Puntos: {0}'}"
+                               FontSize="16"
+                               TextColor="Black"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Botón de volver -->
+        <Button Grid.Row="2"
+                Text="Volver al Inicio"
+                Command="{Binding VolverCommand}"
+                FontSize="16"
+                FontAttributes="Bold"
+                TextColor="White"
+                BackgroundColor="#3f4459"
+                CornerRadius="20"
+                WidthRequest="200"
+                HeightRequest="50"
+                Margin="0,40"
+                HorizontalOptions="Center">
+            <Button.Shadow>
+                <Shadow Brush="Black" Opacity="0.3" Offset="3,3" Radius="5"/>
+            </Button.Shadow>
+        </Button>
+    </Grid>
+</ContentPage>

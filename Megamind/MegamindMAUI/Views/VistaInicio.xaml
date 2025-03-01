@@ -4,78 +4,96 @@
              x:Class="MegamindMAUI.Views.VistaInicio"
              xmlns:vmodel="clr-namespace:MegamindMAUI.VM"
              Background="#7cacdf"
-             >
-    
+             Padding="20">
+
     <ContentPage.BindingContext>
         <vmodel:VMInicio/>
     </ContentPage.BindingContext>
 
-    <Grid Margin="0,150,0,0" RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="30" >
-        <!-- Logo -->
+    <Grid RowDefinitions="*,Auto,Auto,Auto,*" 
+          RowSpacing="15"
+          ColumnDefinitions="*"
+          VerticalOptions="Center">
 
-        <Image Margin="0,0,0,0"  Grid.Row="0" Source="megamindinicio.png" MaximumHeightRequest="350">
-        </Image>
+        <!-- Logo responsivo -->
+        <Image Grid.Row="1"
+               Source="megamindinicio.png"
+               MaximumHeightRequest="250"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
 
-        <!-- Botón inicial, visible al principio -->
-        <Button Grid.Row="1"
-                    Text="Inicio"
-                    Command="{Binding BtnInicioCommand}"
+        <!-- Contenedor botones principales -->
+        <VerticalStackLayout Grid.Row="2" 
+                            Spacing="15"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+
+            <!-- Botón Unirse -->
+            <Button Text="Unirse"
+                    Command="{Binding BtnUnirseSalaCommand}"
                     IsVisible="{Binding EsInicioVisible}"
-                    FontSize="18"
                     Opacity="{Binding OpacidadBtnInicio}"
                     BackgroundColor="#3f4459"
                     FontAttributes="Bold"
+                    CornerRadius="20"
                     WidthRequest="200"
-                    HeightRequest="50"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    CornerRadius="20">
-            <Button.Shadow>
-                <Shadow Brush="Black" Opacity="0.3" Offset="5,5" Radius="10"/>
-            </Button.Shadow>
-        </Button>
-        <!--Nombre de usuario, no visible al principio-->
-        <Frame Grid.Row="1"
-           BackgroundColor="#D3D3D3"
-           IsVisible="{Binding EsPlayVisible}"
-           Opacity="{Binding OpacidadBtnPlay}"
-           CornerRadius="20"
-           WidthRequest="200"
-           HeightRequest="50"
-           Padding="0,0"
-           IsClippedToBounds="True"
-           HasShadow="True"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           >
-            <Entry Placeholder="Nombre: "
-                   Text="{Binding Username}"
-                   IsVisible="{Binding EsPlayVisible}"
-                   Opacity="{Binding OpacidadBtnPlay}"
-                   FontSize="18"
-                   TextColor="Black"
-                  HorizontalTextAlignment="Center"
-                   
-                />
-        </Frame>
+                    HeightRequest="50">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Opacity="0.3" Offset="3,3" Radius="5"/>
+                </Button.Shadow>
+            </Button>
 
-        <!--Botón play, no visible al principio-->
-        <Button Grid.Row="2"
-                Text="Play"
-                Command="{Binding BtnPlayCommand}"
-                IsVisible="{Binding EsPlayVisible}"
-                FontSize="18"
-                 FontAttributes="Bold"
-                Opacity="{Binding OpacidadBtnPlay}"
-                BackgroundColor="#3f4459"
-                WidthRequest="200"
-                HeightRequest="50"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                 CornerRadius="20">
-            <Button.Shadow>
-                <Shadow Brush="Black" Opacity="0.3" Offset="5,5" Radius="10"/>
-            </Button.Shadow>
-        </Button>
+            <!-- Botón Nueva Sala -->
+            <Button Text="Nueva Sala"
+                    Command="{Binding BtnNuevaSalaCommand}"
+                    IsVisible="{Binding EsInicioVisible}"
+                    Opacity="{Binding OpacidadBtnInicio}"
+                    BackgroundColor="#3f4459"
+                    FontAttributes="Bold"
+                    CornerRadius="20"
+                    WidthRequest="200"
+                    HeightRequest="50">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Opacity="0.3" Offset="3,3" Radius="5"/>
+                </Button.Shadow>
+            </Button>
+        </VerticalStackLayout>
+
+        <!-- Campos de entrada y botón Play -->
+        <VerticalStackLayout Grid.Row="3" 
+                            Spacing="15"
+                            IsVisible="{Binding EsPlayVisible}"
+                            Opacity="{Binding OpacidadBtnPlay}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+
+            <!-- Nombre de usuario -->
+            <Frame BackgroundColor="#D3D3D3"
+                   CornerRadius="20"
+                   Padding="0"
+                   HasShadow="True"
+                   WidthRequest="200"
+                   HeightRequest="50">
+                <Entry Placeholder="Nombre: "
+                       Text="{Binding Username}"
+                       FontSize="16"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"/>
+            </Frame>
+
+            <!-- Botón Play -->
+            <Button Text="Play"
+                    Command="{Binding BtnPlayCommand}"
+                    BackgroundColor="#3f4459"
+                    FontAttributes="Bold"
+                    CornerRadius="20"
+                    WidthRequest="200"
+                    HeightRequest="50">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Opacity="0.3" Offset="3,3" Radius="5"/>
+                </Button.Shadow>
+            </Button>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>
