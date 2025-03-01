@@ -12,14 +12,22 @@
         Route="Inicio" />
 
     <ShellContent
+        ContentTemplate="{DataTemplate local:VistaNuevaSala}"
+        Route="NuevaSala" />
+
+    <ShellContent
     ContentTemplate="{DataTemplate local:VistaSalas}"
-    Route="Salas" />-->
+    Route="Salas" />
     
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
-        Route="Juego" />
-    
-    
+        Route="Juego" />-->
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:VistaFinal}"
+        Route="Final" />
+
+
 
 
 </Shell>
