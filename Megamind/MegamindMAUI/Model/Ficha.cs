@@ -41,6 +41,19 @@ namespace ENT
                 fichaColor = "nada.png";
             }
         }
+
+        public Ficha(int color)
+        {
+            if (color >= 0 && color < colores.Count)
+            {
+                fichaColor = $"{colores[color]}.png";
+            }
+            else
+            {
+                fichaColor = "nada.png";
+            }
+        }
+
         #endregion
     }
 }

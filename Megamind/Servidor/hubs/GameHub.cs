@@ -33,7 +33,8 @@ namespace Servidor.hubs
 
         public async Task MandaSolucion(string salaId)
         {
-            await Clients.Group(salaId).SendAsync("RecibeSolucion", calculaSolucion);
+            List<int> numeros = calculaSolucion();
+            await Clients.Group(salaId).SendAsync("RecibeSolucion", numeros);
         }
 
         public async Task Terminado(string salaId)
