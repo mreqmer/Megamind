@@ -17,21 +17,7 @@ namespace MegamindMAUI.VM
         #region PROPIEDADES
         //TODO borrar esto cuando se implemente la sala
         private string nombreJugador;
-        //private List<Sala> salas = new List<Sala>();
-
-        //TODO BORRAR
-        public static Jugador jugador1 = new Jugador("Jugador 1", "1", 10);
-        public static Jugador jugador2 = new Jugador("Jugador 2", "2", 20);
-        public static Jugador jugador3 = new Jugador("Jugador 3", "2", 20);
-        public static Jugador jugador4 = new Jugador("Jugador 4", "2", 20);
-
-        private List<Sala> salas = new List<Sala>
-        {
-            new Sala("aaa", jugador1, jugador2),
-            new Sala("bbb", jugador3, jugador4),
-            new Sala("ccc", jugador1, jugador2),
-            new Sala("aaddda", jugador1, jugador2)
-        };
+        private List<Sala> salas = new List<Sala>();
 
 
         private DelegateCommand btnUnirseSalaCommand;

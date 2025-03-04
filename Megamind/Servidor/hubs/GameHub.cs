@@ -7,12 +7,24 @@ namespace Servidor.hubs
 {
     public class GameHub : Hub
     {
-        static List<Sala> salas = new List<Sala>();
+        //static List<Sala> salas = new List<Sala>();
 
-        public async Task UneSala(Sala sala)
+        public static Jugador jugador1 = new Jugador("Jugador 1", "1", 10);
+        public static Jugador jugador2 = new Jugador("Jugador 2", "2", 20);
+        public static Jugador jugador3 = new Jugador("Jugador 3", "2", 20);
+        public static Jugador jugador4 = new Jugador("Jugador 4", "2", 20);
+
+        static List<Sala> salas = new List<Sala> { 
+            new Sala("aaa", jugador1, jugador2),
+            new Sala("bbb", jugador3, jugador4),
+            new Sala("ccc", jugador1, jugador2),
+            new Sala("aaddda", jugador1, jugador2)
+        };
+        
+
+        public async Task UneSala(String sala)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, sala.NombreSala);
-            //salas[]
+            await Groups.AddToGroupAsync(Context.ConnectionId, sala);
             
         }
         public async Task CreaSala(Sala sala)
@@ -42,8 +54,6 @@ namespace Servidor.hubs
             await Clients.Group(salaId).SendAsync("Espera");
         }
 
-
-
         private List<int> calculaSolucion()
         {
             int indice = 0;
@@ -62,6 +72,8 @@ namespace Servidor.hubs
             }
             return solucion;
         }
+
+
 
     }
 }

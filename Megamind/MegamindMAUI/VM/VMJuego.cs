@@ -119,7 +119,13 @@ namespace MegamindMAUI.VM
             MainThread.BeginInvokeOnMainThread(
                 async () =>
                 {
-                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSolucion", "JAJA");
+                    await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", "aaa");
+                }
+            );
+            MainThread.BeginInvokeOnMainThread(
+                async () =>
+                {
+                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSolucion", "aaa");
                 }
             );
             MegamindMAUI.Model.global.connection.On<List<int>>("RecibeSolucion", (solucion) =>
@@ -157,17 +163,15 @@ namespace MegamindMAUI.VM
         }
 
 
-        //private void cambiaPistichaPropia()
-        //{
+        private void cambiaPistichaPropia()
+        {
 
-        //    for (int i = 0; i < filasJuego.Juego.lenght(); int++)
-        //    {
-        //        //filasJuego[ronda].Juego[i];
-        //    }
+            for (int i = 0; i < filasJuego.Juego.lenght(); int++)
+            {
+                //filasJuego[ronda].Juego[i];
+            }
 
-
-
-        //}
+        }
         #endregion
     }
 }

@@ -17,8 +17,8 @@
         Route="NuevaSala" />
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:VistaSalas}"
-        Route="Salas" />-->
+    ContentTemplate="{DataTemplate local:VistaSalas}"
+    Route="Salas" />-->
 
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
