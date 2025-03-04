@@ -63,7 +63,7 @@
                                     Text="Unirse"
                                     FontSize="12"
                                     TextColor="White" 
-                                    Command="{Binding BindingContext.BtnNuevaSalaCommand}"
+                                    Command="{Binding BindingContext.BtnUnirseaSalaCommand}"
                                     VerticalOptions="Center" 
                                     HorizontalOptions="End"
                                     BackgroundColor="#3f4459"/>

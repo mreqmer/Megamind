@@ -9,9 +9,16 @@ namespace Servidor.hubs
     {
         static List<Sala> salas = new List<Sala>();
 
-        public async Task UneSala(string salaId)
+        public async Task UneSala(Sala sala)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, salaId);
+            await Groups.AddToGroupAsync(Context.ConnectionId, sala.NombreSala);
+            //salas[]
+            
+        }
+        public async Task CreaSala(Sala sala)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, sala.NombreSala);
+            salas.Add(sala);
         }
 
         public async Task DejaSala(string salaId)
@@ -26,10 +33,34 @@ namespace Servidor.hubs
 
         public async Task MandaSolucion(string salaId)
         {
-            //TODO
-            await Clients.Group(salaId).SendAsync("RecibeSolucion", "a");
+            await Clients.Group(salaId).SendAsync("RecibeSolucion", calculaSolucion);
         }
 
-        
+        public async Task Terminado(string salaId)
+        {
+            await Clients.Group(salaId).SendAsync("Espera");
+        }
+
+
+
+        private List<int> calculaSolucion()
+        {
+            int indice = 0;
+            int num;
+            Random random = new Random();
+            List<int> solucion = new List<int>();
+
+            while (indice < 4)
+            {
+                num = random.Next(0, 8);
+                if (!solucion.Contains(num))
+                {
+                    solucion.Add(num);
+                    indice++;
+                }
+            }
+            return solucion;
+        }
+
     }
 }
