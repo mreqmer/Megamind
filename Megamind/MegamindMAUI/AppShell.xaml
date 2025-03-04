@@ -9,20 +9,16 @@
 
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaInicio}"
-<<<<<<< HEAD
-        Route="Inicio" />-->
-<<<<<<< Updated upstream
-=======
         Route="Inicio" />
->>>>>>> origin/main
+
 
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaNuevaSala}"
         Route="NuevaSala" />
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:VistaSalas}"
-        Route="Salas" />
+    ContentTemplate="{DataTemplate local:VistaSalas}"
+    Route="Salas" />
 
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
@@ -34,14 +30,10 @@
 
 
 
-<<<<<<< HEAD
-=======
-    
->>>>>>> Stashed changes
+
+  
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
         Route="Juego" />
-=======
->>>>>>> origin/main
 
 </Shell>
