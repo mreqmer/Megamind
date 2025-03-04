@@ -22,9 +22,9 @@ namespace Servidor.hubs
         };
         
 
-        public async Task UneSala(Sala sala)
+        public async Task UneSala(String sala)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, sala.NombreSala);
+            await Groups.AddToGroupAsync(Context.ConnectionId, sala);
             
         }
         public async Task CreaSala(Sala sala)

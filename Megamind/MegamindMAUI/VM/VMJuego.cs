@@ -119,7 +119,13 @@ namespace MegamindMAUI.VM
             MainThread.BeginInvokeOnMainThread(
                 async () =>
                 {
-                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSolucion", "JAJA");
+                    await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", "aaa");
+                }
+            );
+            MainThread.BeginInvokeOnMainThread(
+                async () =>
+                {
+                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSolucion", "aaa");
                 }
             );
             MegamindMAUI.Model.global.connection.On<List<int>>("RecibeSolucion", (solucion) =>
