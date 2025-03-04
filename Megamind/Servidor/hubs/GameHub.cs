@@ -54,8 +54,6 @@ namespace Servidor.hubs
             await Clients.Group(salaId).SendAsync("Espera");
         }
 
-
-
         private List<int> calculaSolucion()
         {
             int indice = 0;
@@ -74,6 +72,8 @@ namespace Servidor.hubs
             }
             return solucion;
         }
+
+
 
     }
 }

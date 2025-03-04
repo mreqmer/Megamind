@@ -163,17 +163,15 @@ namespace MegamindMAUI.VM
         }
 
 
-        //private void cambiaPistichaPropia()
-        //{
+        private void cambiaPistichaPropia()
+        {
 
-        //    for (int i = 0; i < filasJuego.Juego.lenght(); int++)
-        //    {
-        //        //filasJuego[ronda].Juego[i];
-        //    }
+            for (int i = 0; i < filasJuego.Juego.lenght(); int++)
+            {
+                //filasJuego[ronda].Juego[i];
+            }
 
-
-
-        //}
+        }
         #endregion
     }
 }
