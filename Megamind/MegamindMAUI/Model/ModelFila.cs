@@ -1,4 +1,5 @@
-﻿using ENT;
+using ENT;
+using MegamindMAUI.VM.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace MegamindMAUI.Model
 {
-    public class ModelFila
+    public class ModelFila : ClsVMBase
     {
-        //TODO: Implementar propiedades de la fila
         #region ATRIBUTOS
         private int id;
         private ObservableCollection<Ficha> juego = new ObservableCollection<Ficha>
@@ -34,13 +34,13 @@ namespace MegamindMAUI.Model
             new Pisticha("nada"),
             new Pisticha("nada")
         };
-        private bool esJugable = false;
-        private bool esPistaVisible = true;
+        private bool esJugable = true;
+        private bool esPistaVisible = false;
         #endregion
 
         #region PROPIEDADES
         public int Id { get {  return id; } set { id = value; } }
-        public ObservableCollection<Ficha> Juego { get { return juego; } set { juego = value; } }
+        public ObservableCollection<Ficha> Juego { get { return juego; } set { juego = value; OnPropertyChanged(nameof(Juego)); } }
         public ObservableCollection<Pisticha > PistaPropia { get { return pistaPropia; } set { pistaPropia = value; } }
         public ObservableCollection<Pisticha> PistaRival { get { return pistaRival; } set { pistaRival = value; } }
         public bool EsJugable 
@@ -66,12 +66,12 @@ namespace MegamindMAUI.Model
 
         #region CONSTRUCTORES
         public ModelFila() 
-        { 
-            
-        }
-        public ModelFila(bool esJugable)
         {
-            this.esJugable = esJugable;
+
+        }
+        public ModelFila(int id)
+        {
+            this.id = id;
         }
         public ModelFila(int id, ObservableCollection<Ficha> juego, ObservableCollection<Pisticha> pistaPropia, ObservableCollection<Pisticha> pistaRival)
         {

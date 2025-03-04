@@ -7,14 +7,31 @@
     Shell.FlyoutBehavior="Disabled"
     Title="MegamindMAUI">
 
-    <!--<ShellContent
+    <ShellContent
         ContentTemplate="{DataTemplate local:VistaInicio}"
-        Route="Inicio" />-->
+        Route="Inicio" />
+
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:VistaSalas}"
-        Route="Salas" />
+        ContentTemplate="{DataTemplate local:VistaNuevaSala}"
+        Route="NuevaSala" />
 
+    <ShellContent
+    ContentTemplate="{DataTemplate local:VistaSalas}"
+    Route="Salas" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:VistaJuego}"
+        Route="Juego" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:VistaFinal}"
+        Route="Final" />
+
+
+
+
+  
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
         Route="Juego" />

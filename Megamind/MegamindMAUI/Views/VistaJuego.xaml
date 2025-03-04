@@ -84,7 +84,7 @@
 
                 <!-- Segundo CollectionView -->
                 <Grid Grid.Column="1" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
-                      IsVisible="{Binding FilasJuego[0].EsPistaVisible}"
+                      IsVisible="{Binding FilasJuego[9].EsPistaVisible}"
                       AbsoluteLayout.LayoutFlags="All"
                       VerticalOptions="Center"
                       HorizontalOptions="Center"
@@ -611,7 +611,6 @@
 
                 <!-- Segundo CollectionView -->
                 <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
-                      IsVisible="{Binding FilasJuego[3].EsPistaVisible}"
                       AbsoluteLayout.LayoutFlags="All"
                       VerticalOptions="Center"
                       HorizontalOptions="Center"
@@ -725,7 +724,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}">
+                    SelectedItem="{Binding FichaACambiar}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
@@ -762,44 +761,44 @@
                       RowDefinitions="*,*"
                       ColumnDefinitions="*,*">
                     <Image Grid.Row="0" Grid.Column="0"
-               Source="{Binding FilasJuego[1].PistaPropia[0].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                       Source="{Binding FilasJuego[1].PistaPropia[0].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0,0,0,0"/>
                     <Image Grid.Row="0" Grid.Column="1"
-               Source="{Binding FilasJuego[1].PistaPropia[1].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[1].PistaPropia[1].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                     <Image Grid.Row="1" Grid.Column="0"
-               Source="{Binding FilasJuego[1].PistaPropia[2].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[1].PistaPropia[2].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                     <Image Grid.Row="1" Grid.Column="1"
-               Source="{Binding FilasJuego[1].PistaPropia[3].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[1].PistaPropia[3].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                 </Grid>
 
                 <!-- Segundo CollectionView -->
                 <Grid Grid.Column="2" AbsoluteLayout.LayoutBounds="0.33, 0.1, 0.33, 0.08"
-          AbsoluteLayout.LayoutFlags="All"
-          VerticalOptions="Center"
-          HorizontalOptions="Center"
-          RowSpacing="15"
-          ColumnSpacing="15"
-          RowDefinitions="*,*"
-          ColumnDefinitions="*,*">
+                      AbsoluteLayout.LayoutFlags="All"
+                      VerticalOptions="Center"
+                      HorizontalOptions="Center"
+                      RowSpacing="15"
+                      ColumnSpacing="15"
+                      RowDefinitions="*,*"
+                      ColumnDefinitions="*,*">
                     <Image Grid.Row="0" Grid.Column="0"
-               Source="{Binding FilasJuego[1].PistaRival[0].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0,0,0,0"/>
+                       Source="{Binding FilasJuego[1].PistaRival[0].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0,0,0,0"/>
                     <Image Grid.Row="0" Grid.Column="1"
-               Source="{Binding FilasJuego[1].PistaRival[1].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[1].PistaRival[1].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                     <Image Grid.Row="1" Grid.Column="0"
-               Source="{Binding FilasJuego[1].PistaRival[2].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[1].PistaRival[2].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                     <Image Grid.Row="1" Grid.Column="1"
-               Source="{Binding FilasJuego[1].PistaRival[3].FichaColor}" 
-               MaximumHeightRequest="15" Margin="0"/>
+                       Source="{Binding FilasJuego[1].PistaRival[3].FichaColor}" 
+                       MaximumHeightRequest="15" Margin="0"/>
                 </Grid>
             </Grid>
 
-            <Grid BackgroundColor="Green" Grid.Row="9" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[0].EsJugable}">
+            <Grid BackgroundColor="#b98d66" Grid.Row="9" ColumnDefinitions="*,*,*" IsEnabled="{Binding FilasJuego[0].EsJugable}">
                 <CollectionView Grid.Column="0"
                     Margin="80,0,0,0"
                     MaximumHeightRequest="80"
@@ -807,7 +806,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}"
+                    SelectedItem="{Binding FichaACambiar}"
                     >
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
@@ -888,6 +887,8 @@
         <!-- Contenedor con las fichas posibles para jugar -->
         <!-- Tercera fila -->
         <CollectionView Grid.Row="2" BackgroundColor="#b98d66" 
+                        SelectedItem="{Binding ColorSeleccionado}"
+                        SelectionMode="Single"
                         VerticalOptions="FillAndExpand"
                         MaximumHeightRequest="130"
                         WidthRequest="500"
