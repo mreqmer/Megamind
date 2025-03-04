@@ -10,13 +10,13 @@ namespace ENT
     {
         #region ATRIBUTOS
         private String nombre;
-        private int sala = 0;
+        private String sala = "0";
         private int puntuacion = 0;
         #endregion
 
         #region PROPIEDADES
         public String Nombre { get { return nombre; } set { nombre = value; } }
-        public int Sala { get { return sala; } set { sala = value; } }
+        public String Sala { get { return sala; } set { sala = value; } }
         public int Puntuacion { get { return puntuacion; } set { puntuacion = value; } }
         #endregion
 
@@ -25,7 +25,7 @@ namespace ENT
         {
         }
 
-        public Jugador(String nombre, int sala, int puntuacion)
+        public Jugador(String nombre, String sala, int puntuacion)
         {
             this.nombre = nombre;
             this.sala = sala;

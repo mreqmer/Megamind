@@ -10,4 +10,8 @@
     <ProjectReference Include="..\ENT\ENT.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
 </Project>

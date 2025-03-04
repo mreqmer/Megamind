@@ -1,9 +1,12 @@
-﻿using MegamindMAUI.VM.Utils;
+﻿using ENT;
+using MegamindMAUI.VM.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MegamindMAUI.Model;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace MegamindMAUI.VM
 {
@@ -35,11 +38,16 @@ namespace MegamindMAUI.VM
 
         public void btnCrearSalaCommandExecute()
         {
-            Console.WriteLine("pulsado");
+            Jugador jugador = new Jugador(NombreUsuario, NombreSala, 0);
+            MainThread.BeginInvokeOnMainThread(
+                async() =>
+                {
+                    await global.connection.InvokeAsync("UneSala", nombreSala);
+                }
+            );
+            //TODO TE MUEVE A LA PANTALLA DE ESPERA
         }
-
         #endregion
-
 
 
     }

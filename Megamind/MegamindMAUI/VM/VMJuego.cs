@@ -148,7 +148,7 @@ namespace MegamindMAUI.VM
         //        //filasJuego[ronda].Juego[i];
         //    }
 
-            
+
 
         //}
         #endregion

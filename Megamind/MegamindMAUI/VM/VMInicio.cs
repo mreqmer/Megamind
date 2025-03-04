@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ENT;
 using MegamindMAUI.VM.Utils;
+using Microsoft.AspNetCore.SignalR.Client;
+using MegamindMAUI.Model;
+
 
 namespace MegamindMAUI.VM
 {
@@ -35,6 +38,8 @@ namespace MegamindMAUI.VM
         #region Constructores
         public VMInicio()
         {
+            global.connection = new HubConnectionBuilder().WithUrl(global.url).Build();
+            esperarConexion();
             btnNuevaSalaCommand = new DelegateCommand(btnNuevaSalaCommandExecute);
             btnUnirseSalaCommand = new DelegateCommand(btnUnirseSalaCommandExecute);
             btnPlayCommand = new DelegateCommand(btnPlayCommandExecute, btnPlayCommandCanExecute);
@@ -49,6 +54,7 @@ namespace MegamindMAUI.VM
         public async void btnNuevaSalaCommandExecute()
         {
             await Shell.Current.GoToAsync("///NuevaSala");
+
         }
 
         /// <summary>
@@ -82,7 +88,12 @@ namespace MegamindMAUI.VM
         /// </summary>
         public async void btnPlayCommandExecute()
         {
-            await Shell.Current.GoToAsync("///Salas");
+            var queryParams = new Dictionary<string, object>
+                 {
+                 { "NombreJugador", username }
+                 };
+
+            await Shell.Current.GoToAsync("///Salas", queryParams);
         }
         #endregion
 
@@ -139,6 +150,19 @@ namespace MegamindMAUI.VM
                 }
             }
         }
+
+
+        private async Task esperarConexion()
+        {
+            MainThread.BeginInvokeOnMainThread(
+                async () =>
+                    {
+                        await global.connection.StartAsync();
+                    }
+            );
+        }
+
+
         #endregion
 
     }
