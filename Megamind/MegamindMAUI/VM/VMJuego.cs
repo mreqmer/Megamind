@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MegamindMAUI.VM.Utils;
 using System.Diagnostics;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace MegamindMAUI.VM
 {
@@ -34,13 +35,14 @@ namespace MegamindMAUI.VM
         public DelegateCommand BtnJugarCommand { get { return btnJugarCommand; } }
 
         public Ficha Ficha { get { return ficha; } set { ficha = colorSeleccionado; OnPropertyChanged(nameof(Ficha)); } }
-        public Ficha FichaACambiar { get { return fichaACambiar; } set { fichaACambiar = value; OnPropertyChanged("fichaACambiar"); cambiaficha(fichaACambiar); } }
+        public Ficha FichaACambiar { get { return fichaACambiar; } set { fichaACambiar = value; OnPropertyChanged("FichaACambiar"); cambiaficha(fichaACambiar); } }
         #endregion
 
         #region CONSTRUCTORES
 
         public VMJuego()
         {
+            
             coloresDisponibles();
             inicializaFilasJuego();
             inicializaCombinacion();
@@ -108,16 +110,30 @@ namespace MegamindMAUI.VM
             };
         }
 
-        private void inicializaCombinacion()
+
+
+        private async Task inicializaCombinacion()
         {
-            combinacion.Clear();
-            combinacion = new ObservableCollection<Ficha>
+            List<int> solucion = new List<int>();
+            await global.InicializaConexion();
+            MainThread.BeginInvokeOnMainThread(
+                async () =>
+                {
+                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSolucion", "JAJA");
+                }
+            );
+            MegamindMAUI.Model.global.connection.On<List<int>>("RecibeSolucion", (solucion) =>
             {
-                new Ficha("nada"),
-                new Ficha("nada"),
-                new Ficha("nada"),
-                new Ficha("nada")
-            };
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    combinacion.Clear();
+                    foreach (var num in solucion)
+                    {
+                        combinacion.Add(new Ficha(num));
+                    }
+                    OnPropertyChanged(nameof(Combinacion));
+                });
+            });
         }
         #endregion
 
@@ -139,6 +155,7 @@ namespace MegamindMAUI.VM
             int index = filasJuego[ronda].Juego.IndexOf(ficha);
             filasJuego[ronda].Juego[index].FichaColor = colorSeleccionado.FichaColor;
         }
+
 
         //private void cambiaPistichaPropia()
         //{

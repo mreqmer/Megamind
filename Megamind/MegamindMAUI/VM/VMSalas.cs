@@ -11,33 +11,38 @@ using System.Threading.Tasks;
 namespace MegamindMAUI.VM
 {
     [QueryProperty(nameof(NombreJugador), "NombreJugador")]
-    public class VMSalas
+    public class VMSalas : ClsVMBase
     {
 
         #region PROPIEDADES
         //TODO borrar esto cuando se implemente la sala
         private string nombreJugador;
-        private List<Sala> salas = new List<Sala>();
-        //{
-        //    new Jugador("Jugador 1", "1", 10),
-        //    new Jugador("Jugador 2", "2", 20),
-        //    new Jugador("Jugador 3", "3", 30),
-        //    new Jugador("Jugador 4", "4", 40),
-        //    new Jugador("Jugador 5", "5", 50),
-        //    new Jugador("Jugador 6", "6", 60),
-        //    new Jugador("Jugador 7", "7", 70),
-        //    new Jugador("Jugador 8", "8", 80),
-        //    new Jugador("Jugador 9", "9", 90),
-        //    new Jugador("Jugador 10", "10", 100)
-        //};
+        //private List<Sala> salas = new List<Sala>();
+
+        //TODO BORRAR
+        public static Jugador jugador1 = new Jugador("Jugador 1", "1", 10);
+        public static Jugador jugador2 = new Jugador("Jugador 2", "2", 20);
+        public static Jugador jugador3 = new Jugador("Jugador 3", "2", 20);
+        public static Jugador jugador4 = new Jugador("Jugador 4", "2", 20);
+
+        private List<Sala> salas = new List<Sala>
+        {
+            new Sala("aaa", jugador1, jugador2),
+            new Sala("bbb", jugador3, jugador4),
+            new Sala("ccc", jugador1, jugador2),
+            new Sala("aaddda", jugador1, jugador2)
+        };
+
 
         private DelegateCommand btnUnirseSalaCommand;
+        private Sala salaSeleccionada;
         #endregion
 
         #region ATRIBUTOS
         public List<Sala> Salas { get { return salas; } set { salas = value; } }
         public DelegateCommand BtnUnirseSalaCommand { get {  return btnUnirseSalaCommand; } }
         public string NombreJugador { get { return nombreJugador; } set { nombreJugador = value; } }
+        public Sala SalaSeleccionada { get { return salaSeleccionada; } set { salaSeleccionada = value; OnPropertyChanged(nameof(SalaSeleccionada)); } }
 
         #endregion
 
@@ -45,22 +50,24 @@ namespace MegamindMAUI.VM
         public VMSalas()
         {
 
-            btnUnirseSalaCommand = new DelegateCommand(btnUnirseaSalaCommand_Execute);
+            btnUnirseSalaCommand = new DelegateCommand(btnUnirseSalaCommand_Execute);
+
         }
         #endregion
 
         #region COMMANDS
 
-        public void btnUnirseaSalaCommand_Execute()
+        public void btnUnirseSalaCommand_Execute()
         {
-            //TODO logica de la nueva sala
-            Jugador jugador = new Jugador(NombreJugador, "", 0);
-            MainThread.BeginInvokeOnMainThread(
-                async () =>
-                {
-                    await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", Salas[0]);
-                }
-            );
+            Console.WriteLine("Texto o valor a mostrar");
+
+            //Jugador jugador = new Jugador(NombreJugador, "", 0);
+            //MainThread.BeginInvokeOnMainThread(
+            //    async () =>
+            //    {
+            //        await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", SalaSeleccionada);
+            //    }
+            //);
         }
 
         #endregion
