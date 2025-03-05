@@ -27,7 +27,7 @@ namespace MegamindMAUI.VM
         private DelegateCommand btnJugarCommand;
         private Ficha fichaACambiar;
         private int resuelto = 0;
-        private Jugador jugador;
+        private Jugador jugador = new Jugador("Pedro" ,"aaa", 0);
 
         #endregion
 
@@ -76,9 +76,7 @@ namespace MegamindMAUI.VM
         {
             cambiaPistichaPropia();
 
-            compruebaResultado();
-
-            mandaAlResultado();
+            await compruebaResultado();
 
             ronda++;
 
@@ -131,7 +129,7 @@ namespace MegamindMAUI.VM
             MainThread.BeginInvokeOnMainThread(
                 async () =>
                 {
-                    await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", jugador.Sala);
+                    await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", jugador.Sala, jugador);
                 }
             );
             MainThread.BeginInvokeOnMainThread(
@@ -209,7 +207,7 @@ namespace MegamindMAUI.VM
             }
         }
 
-        private void compruebaResultado()
+        private async Task compruebaResultado()
         {
             if (filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png"
                 && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png")
@@ -225,6 +223,8 @@ namespace MegamindMAUI.VM
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
                         resuelto++;
+                        mandaAlResultado();
+
                     });
 
                 });
