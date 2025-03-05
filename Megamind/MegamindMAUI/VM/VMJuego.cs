@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace MegamindMAUI.VM
 {
-
+    [QueryProperty(nameof(Jugador), "jugador")]
     public class VMJuego : ClsVMBase
     {
         //TODO: Implementar propiedades del juego
@@ -27,6 +27,7 @@ namespace MegamindMAUI.VM
         private DelegateCommand btnJugarCommand;
         private Ficha fichaACambiar;
         private int resuelto = 0;
+        private Jugador jugador;
 
         #endregion
 
@@ -41,6 +42,7 @@ namespace MegamindMAUI.VM
         public Ficha Ficha { get { return ficha; } set { ficha = colorSeleccionado; OnPropertyChanged(nameof(Ficha)); } }
         public Ficha FichaACambiar { get { return fichaACambiar; } set { fichaACambiar = value; OnPropertyChanged("FichaACambiar"); cambiaficha(fichaACambiar); } }
         public int Resuelto { get { return resuelto; } set { resuelto = value; } }
+        public Jugador Jugador { get { return jugador; } set { jugador = value; } }
         #endregion
 
         #region CONSTRUCTORES
@@ -129,13 +131,13 @@ namespace MegamindMAUI.VM
             MainThread.BeginInvokeOnMainThread(
                 async () =>
                 {
-                    await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", "aaa");
+                    await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", jugador.Sala);
                 }
             );
             MainThread.BeginInvokeOnMainThread(
                 async () =>
                 {
-                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSolucion", "aaa");
+                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSolucion", jugador.Sala);
                 }
             );
             MegamindMAUI.Model.global.connection.On<List<int>>("RecibeSolucion", (solucion) =>
@@ -215,7 +217,7 @@ namespace MegamindMAUI.VM
                 MainThread.BeginInvokeOnMainThread(
                     async () =>
                     {
-                        await MegamindMAUI.Model.global.connection.InvokeAsync("Terminado", "aaa");
+                        await MegamindMAUI.Model.global.connection.InvokeAsync("Terminado", jugador.Sala);
                     }
                 );
                 MegamindMAUI.Model.global.connection.On("Espera", () =>
