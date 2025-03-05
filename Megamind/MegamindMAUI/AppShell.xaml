@@ -22,11 +22,11 @@
 
     <ShellContent
         ContentTemplate="{DataTemplate local:VistaJuego}"
-        Route="Juego" />
+        Route="Megamind" />
 
-    <!--<ShellContent
+    <ShellContent
         ContentTemplate="{DataTemplate local:VistaFinal}"
-        Route="Final" />-->
+        Route="Final" />
 
 
 
