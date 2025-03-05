@@ -7,6 +7,7 @@ using ENT;
 using MegamindMAUI.VM.Utils;
 using Microsoft.AspNetCore.SignalR.Client;
 using MegamindMAUI.Model;
+using Servidor.Model;
 
 
 namespace MegamindMAUI.VM
@@ -38,7 +39,6 @@ namespace MegamindMAUI.VM
         #region Constructores
         public VMInicio()
         {
-            global.connection = new HubConnectionBuilder().WithUrl(global.url).Build();
             esperarConexion();
             btnNuevaSalaCommand = new DelegateCommand(btnNuevaSalaCommandExecute);
             btnUnirseSalaCommand = new DelegateCommand(btnUnirseSalaCommandExecute);
@@ -53,6 +53,7 @@ namespace MegamindMAUI.VM
         /// </summary>
         public async void btnNuevaSalaCommandExecute()
         {
+            
             await Shell.Current.GoToAsync("///NuevaSala");
 
         }
@@ -154,12 +155,7 @@ namespace MegamindMAUI.VM
 
         private async Task esperarConexion()
         {
-            MainThread.BeginInvokeOnMainThread(
-                async () =>
-                    {
-                        await global.connection.StartAsync();
-                    }
-            );
+            await global.InicializaConexion();
         }
 
 

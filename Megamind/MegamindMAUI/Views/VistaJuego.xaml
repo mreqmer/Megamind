@@ -61,7 +61,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <HorizontalStackLayout HorizontalOptions="Center">
-                                <Image Source="{Binding FichaColor}" MaximumHeightRequest="30" Margin="0"/>
+                                <Image Source="{Binding FichaACambiar}" MaximumHeightRequest="30" Margin="0"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -139,7 +139,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}">
+                    SelectedItem="{Binding FichaACambiar}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
@@ -223,7 +223,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}">
+                    SelectedItem="{Binding FichaACambiar}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
@@ -307,7 +307,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}">
+                    SelectedItem="{Binding FichaACambiar}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
@@ -391,7 +391,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}">
+                    SelectedItem="{Binding FichaACambiar}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
@@ -475,7 +475,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}">
+                    SelectedItem="{Binding FichaACambiar}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
@@ -558,7 +558,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}">
+                    SelectedItem="{Binding FichaACambiar}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
@@ -641,7 +641,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding ColorSeleccionado}">
+                    SelectedItem="{Binding FichaACambiar}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
                     </CollectionView.ItemsLayout>

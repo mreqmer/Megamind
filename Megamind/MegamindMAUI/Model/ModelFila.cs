@@ -41,7 +41,7 @@ namespace MegamindMAUI.Model
         #region PROPIEDADES
         public int Id { get {  return id; } set { id = value; } }
         public ObservableCollection<Ficha> Juego { get { return juego; } set { juego = value; OnPropertyChanged(nameof(Juego)); } }
-        public ObservableCollection<Pisticha > PistaPropia { get { return pistaPropia; } set { pistaPropia = value; } }
+        public ObservableCollection<Pisticha> PistaPropia { get { return pistaPropia; } set { pistaPropia = value; OnPropertyChanged(nameof(PistaPropia)); } }
         public ObservableCollection<Pisticha> PistaRival { get { return pistaRival; } set { pistaRival = value; } }
         public bool EsJugable 
         { 
@@ -80,6 +80,7 @@ namespace MegamindMAUI.Model
             this.pistaPropia = pistaPropia;
             this.pistaRival = pistaRival;
         }
+
         #endregion
     }
 }

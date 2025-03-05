@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ENT
 {
-    public class Pisticha
+    public class Pisticha : IComparable<Pisticha>
     {
         #region ATRIBUTOS
         private List<string> pistichaColores = new List<string>{
-            "rojo", "negro", "azul", "amarillo",
-            "rosa", "verde", "blanco", "morado", "nada"
+            "rojo", "blanco", "nada"
         };
         private String pistichaColor;
         #endregion
@@ -29,7 +28,7 @@ namespace ENT
 
         public Pisticha(string color)
         {
-            if (pistichaColores.Contains(color))
+            if (pistichaColores.Contains(color.ToLower()))
             {
                 pistichaColor = color + ".png";
             }
@@ -38,6 +37,27 @@ namespace ENT
                 pistichaColor = "nada.png";
             }
         }
+
+        public int CompareTo(Pisticha? other)
+        {
+            if (other == null) return 1;
+
+            // Definir prioridad de colores
+            Dictionary<string, int> prioridad = new Dictionary<string, int>
+            {
+                { "rojo.png", 1 },
+                { "blanco.png", 2 },
+                { "nada.png", 3 }
+            };
+
+            int thisPriority = prioridad[pistichaColor.ToLower()];
+            int otherPriority = prioridad[other.pistichaColor.ToLower()];
+
+            // Comparar según prioridad
+            return thisPriority.CompareTo(otherPriority);
+        }
+
+
         #endregion
     }
 }
