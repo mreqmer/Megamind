@@ -166,10 +166,7 @@ namespace MegamindMAUI.VM
         private void cambiaPistichaPropia()
         {
 
-            for (int i = 0; i < filasJuego.Juego.lenght(); int++)
-            {
-                //filasJuego[ronda].Juego[i];
-            }
+            
 
         }
         #endregion
