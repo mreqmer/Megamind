@@ -47,13 +47,27 @@ namespace MegamindMAUI.VM
         {
             Console.WriteLine("Texto o valor a mostrar");
 
-            //Jugador jugador = new Jugador(NombreJugador, "", 0);
-            //MainThread.BeginInvokeOnMainThread(
-            //    async () =>
-            //    {
-            //        await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", SalaSeleccionada);
-            //    }
-            //);
+            Jugador jugador = new Jugador(NombreJugador, salaSeleccionada.NombreSala, 0);
+            MainThread.BeginInvokeOnMainThread(
+               async () =>
+               {
+                   await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", salaSeleccionada.NombreSala);
+               }
+           );
+        }
+
+        #endregion
+
+        #region METODOS
+
+        public void inicializa()
+        {
+            MainThread.BeginInvokeOnMainThread(
+               async () =>
+               {
+                   await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSalas", salas);
+               }
+           );
         }
 
         #endregion
