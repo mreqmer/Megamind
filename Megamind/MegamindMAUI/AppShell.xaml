@@ -24,9 +24,9 @@
         ContentTemplate="{DataTemplate local:VistaJuego}"
         Route="Juego" />
 
-    <!--<ShellContent
+    <ShellContent
         ContentTemplate="{DataTemplate local:VistaFinal}"
-        Route="Final" />-->
+        Route="Final" />
 
 
 

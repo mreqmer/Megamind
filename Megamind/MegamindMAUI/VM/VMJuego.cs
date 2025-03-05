@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using MegamindMAUI.VM.Utils;
 using System.Diagnostics;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.ComponentModel;
 
 namespace MegamindMAUI.VM
 {
+
     public class VMJuego : ClsVMBase
     {
         //TODO: Implementar propiedades del juego
@@ -24,10 +26,12 @@ namespace MegamindMAUI.VM
         private int ronda = 0;
         private DelegateCommand btnJugarCommand;
         private Ficha fichaACambiar;
+        private int resuelto = 0;
+
         #endregion
 
         #region PROPIEDADES
-        public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; } }
+        public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; BtnJugarCommand.RaiseCanExecuteChanged(); } }
         public ObservableCollection<Ficha> Tablero { get { return tablero; } }
         public ObservableCollection<Ficha> Combinacion { get { return combinacion;} set { combinacion = value; } }
         public Ficha ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; OnPropertyChanged(nameof(ColorSeleccionado)); } }
@@ -36,6 +40,7 @@ namespace MegamindMAUI.VM
 
         public Ficha Ficha { get { return ficha; } set { ficha = colorSeleccionado; OnPropertyChanged(nameof(Ficha)); } }
         public Ficha FichaACambiar { get { return fichaACambiar; } set { fichaACambiar = value; OnPropertyChanged("FichaACambiar"); cambiaficha(fichaACambiar); } }
+        public int Resuelto { get { return resuelto; } set { resuelto = value; } }
         #endregion
 
         #region CONSTRUCTORES
@@ -56,20 +61,25 @@ namespace MegamindMAUI.VM
 
         private bool btnJugarCommandCanExecute()
         {
-            //bool bandera = false;
-
-            //if (filasJuego[Ronda].Juego[0].FichaColor!="nada" && filasJuego[Ronda].Juego[1].FichaColor != "nada" && filasJuego[Ronda].Juego[2].FichaColor != "nada" && filasJuego[Ronda].Juego[3].FichaColor != "nada")
-            //{
-            //    bandera = true;
-            //}
-
-            //return bandera;
-            return true;
+            bool bandera = false;
+            if (filasJuego[ronda].Juego[0].FichaColor != "nada.png" && filasJuego[ronda].Juego[1].FichaColor != "nada.png" 
+                && filasJuego[ronda].Juego[2].FichaColor != "nada.png" && filasJuego[ronda].Juego[3].FichaColor != "nada.png")
+            {
+                bandera = true;
+            }
+            return bandera;
         }
 
         private async void btnJugarCommandExecute()
         {
+            cambiaPistichaPropia();
+
+            compruebaResultado();
+
+            mandaAlResultado();
+
             ronda++;
+
             calculaRondaJugable();
         }
 
@@ -160,18 +170,65 @@ namespace MegamindMAUI.VM
         {
             int index = filasJuego[ronda].Juego.IndexOf(ficha);
             filasJuego[ronda].Juego[index].FichaColor = colorSeleccionado.FichaColor;
+            BtnJugarCommand.RaiseCanExecuteChanged();
         }
 
 
         private void cambiaPistichaPropia()
         {
-
-            for (int i = 0; i < filasJuego.Juego.lenght(); int++)
+            for (int i = 0; i < 4; i++)
             {
-                //filasJuego[ronda].Juego[i];
+                if (filasJuego[ronda].Juego[i].FichaColor == combinacion[i].FichaColor)
+                {
+                    // Si está en la posición correcta, asignamos "Rojo"
+                    filasJuego[ronda].PistaPropia[i] = new Pisticha("Rojo");
+                }
+                else if (combinacion.Any(ficha => ficha.FichaColor == filasJuego[ronda].Juego[i].FichaColor))
+                {
+                    // Si está en la combinación pero en otra posición, asignamos "Blanco"
+                    filasJuego[ronda].PistaPropia[i] = new Pisticha("Blanco");
+                }
+                else
+                {
+                    // Si no está en la combinación, asignamos "Nada"
+                    filasJuego[ronda].PistaPropia[i] = new Pisticha("Nada");
+                }
             }
 
+            filasJuego[ronda].PistaPropia = new ObservableCollection<Pisticha>(filasJuego[ronda].PistaPropia.OrderBy(p => p));
+
         }
+
+        public async void mandaAlResultado()
+        {
+            if (resuelto == 1)
+            {
+                await Shell.Current.GoToAsync("///Final");
+            }
+        }
+
+        private void compruebaResultado()
+        {
+            if (filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png"
+                && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png")
+            {
+                MainThread.BeginInvokeOnMainThread(
+                    async () =>
+                    {
+                        await MegamindMAUI.Model.global.connection.InvokeAsync("Terminado", "aaa");
+                    }
+                );
+                MegamindMAUI.Model.global.connection.On("Espera", () =>
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        resuelto++;
+                    });
+
+                });
+            }
+        }
+
         #endregion
     }
 }
