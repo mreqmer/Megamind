@@ -180,17 +180,17 @@ namespace MegamindMAUI.VM
             {
                 if (filasJuego[ronda].Juego[i].FichaColor == combinacion[i].FichaColor)
                 {
-                    // Si está en la posición correcta, asignamos "Rojo"
+                    // Si estï¿½ en la posiciï¿½n correcta, asignamos "Rojo"
                     filasJuego[ronda].PistaPropia[i] = new Pisticha("Rojo");
                 }
                 else if (combinacion.Any(ficha => ficha.FichaColor == filasJuego[ronda].Juego[i].FichaColor))
                 {
-                    // Si está en la combinación pero en otra posición, asignamos "Blanco"
+                    // Si estï¿½ en la combinaciï¿½n pero en otra posiciï¿½n, asignamos "Blanco"
                     filasJuego[ronda].PistaPropia[i] = new Pisticha("Blanco");
                 }
                 else
                 {
-                    // Si no está en la combinación, asignamos "Nada"
+                    // Si no estï¿½ en la combinaciï¿½n, asignamos "Nada"
                     filasJuego[ronda].PistaPropia[i] = new Pisticha("Nada");
                 }
             }

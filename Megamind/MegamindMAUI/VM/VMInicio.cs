@@ -7,6 +7,7 @@ using ENT;
 using MegamindMAUI.VM.Utils;
 using Microsoft.AspNetCore.SignalR.Client;
 using MegamindMAUI.Model;
+using Servidor.Model;
 
 
 namespace MegamindMAUI.VM
@@ -52,6 +53,7 @@ namespace MegamindMAUI.VM
         /// </summary>
         public async void btnNuevaSalaCommandExecute()
         {
+            
             await Shell.Current.GoToAsync("///NuevaSala");
 
         }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MegamindMAUI.Model;
 using Microsoft.AspNetCore.SignalR.Client;
+using Servidor.Model;
 
 namespace MegamindMAUI.VM
 {
@@ -36,17 +37,21 @@ namespace MegamindMAUI.VM
 
         #region COMMANDS
 
-        public void btnCrearSalaCommandExecute()
+        public async void btnCrearSalaCommandExecute()
         {
             Jugador jugador = new Jugador(NombreUsuario, NombreSala, 0);
+            
+            Sala nuevaSala = new Sala(nombreSala, jugador);
+
             MainThread.BeginInvokeOnMainThread(
-                async() =>
-                {
-                    await global.connection.InvokeAsync("UneSala", nombreSala);
-                }
-            );
-            //TODO TE MUEVE A LA PANTALLA DE ESPERA
+              async () =>
+              {
+                  await MegamindMAUI.Model.global.connection.InvokeAsync("CreaSala", nuevaSala);
+              }
+          );
+            await Shell.Current.GoToAsync("///Salas");
         }
+        
         #endregion
 
 
