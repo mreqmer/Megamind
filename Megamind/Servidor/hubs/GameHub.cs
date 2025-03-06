@@ -1,6 +1,7 @@
 ﻿using ENT;
 using Microsoft.AspNetCore.SignalR;
 using Servidor.Model;
+using System.Collections.ObjectModel;
 using System.Xml.Linq;
 
 namespace Servidor.hubs
@@ -100,7 +101,10 @@ namespace Servidor.hubs
             return solucion;
         }
 
-
+        public async Task MandaPisticha(string grupo, ObservableCollection<Pisticha> pista, int ronda)
+        {
+            await Clients.OthersInGroup(grupo).SendAsync("RecibePisticha", pista, ronda);
+        }
 
     }
 }

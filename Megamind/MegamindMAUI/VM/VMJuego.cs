@@ -51,9 +51,14 @@ namespace MegamindMAUI.VM
 
         public VMJuego()
         {
-            
             coloresDisponibles();
             inicializaFilasJuego();
+
+            MegamindMAUI.Model.global.connection.On<ObservableCollection<Pisticha>, int>("RecibePisticha", (pistaRecibida, rondaRival) =>
+            {
+                filasJuego[rondaRival].PistaRival = pistaRecibida;
+            });
+
             calculaRondaJugable();
             btnJugarCommand = new DelegateCommand(btnJugarCommandExecute, btnJugarCommandCanExecute);
         }
@@ -75,7 +80,7 @@ namespace MegamindMAUI.VM
 
         private async void btnJugarCommandExecute()
         {
-            cambiaPistichaPropia();
+            trabajaPisticha();
 
             await compruebaResultado();
 
@@ -182,7 +187,7 @@ namespace MegamindMAUI.VM
         }
 
 
-        private void cambiaPistichaPropia()
+        private async void trabajaPisticha()
         {
             for (int i = 0; i < 4; i++)
             {
@@ -205,11 +210,14 @@ namespace MegamindMAUI.VM
 
             filasJuego[ronda].PistaPropia = new ObservableCollection<Pisticha>(filasJuego[ronda].PistaPropia.OrderBy(p => p));
 
+            await MegamindMAUI.Model.global.connection.InvokeAsync("MandaPisticha", jugador.Sala, filasJuego[ronda].PistaPropia, ronda);
+
+
         }
 
         public async void mandaAlResultado()
         {
-            if (resuelto == 1)
+            if (resuelto == 2)
             {
                 await Shell.Current.GoToAsync("///Final");
             }
