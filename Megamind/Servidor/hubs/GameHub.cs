@@ -14,12 +14,15 @@ namespace Servidor.hubs
         public static Jugador jugador2 = new Jugador("Jugador 2", "2", 20);
         public static Jugador jugador3 = new Jugador("Jugador 3", "2", 20);
         public static Jugador jugador4 = new Jugador("Jugador 4", "2", 20);
+        public static Jugador jugador5 = new Jugador("Pepi", "2211", 20);
+        public static Jugador jugador6 = new Jugador("Ruben", "2211", 20);
 
-        static List<Sala> salas = new List<Sala> { 
+        static List<Sala> salas = new List<Sala> {
             new Sala("aaa", jugador1),
             new Sala("bbb", jugador3),
             new Sala("ccc", jugador1, jugador2),
-            new Sala("aaddda", jugador1, jugador2)
+            new Sala("aaddda", jugador1, jugador2),
+            new Sala("2211", jugador5, jugador6)
         };
         
 
@@ -40,16 +43,17 @@ namespace Servidor.hubs
             if (encontrado)
             {
                 await Groups.AddToGroupAsync(Context.ConnectionId, sala);
-                await Clients.All.SendAsync("SalaUnida", encontrado);
+                await Clients.Group(sala).SendAsync("SalaUnida", encontrado);
             }else
             {
-                await Clients.All.SendAsync("SalaUnida", encontrado);
+                await Clients.Group(sala).SendAsync("SalaUnida", encontrado);
             }
         }
         public async Task CreaSala(Sala sala)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, sala.NombreSala);
             salas.Add(sala);
+            
         }
 
         public async Task DejaSala(string salaId)
@@ -77,10 +81,34 @@ namespace Servidor.hubs
             await Clients.Group(salaId).SendAsync("RecibeSolucion", numeros);
         }
 
-        public async Task Terminado(string salaId)
+        public async Task Terminado(Jugador jugador)
         {
-            await Clients.Group(salaId).SendAsync("Espera");
+            int i = 0;
+            bool encontrado = false;
+
+            while (i < salas.Count && !encontrado)
+            {
+                if (salas[i].NombreSala.Equals(jugador.Sala))
+                {
+                    if (salas[i].Jugador1 == null || salas[i].Jugador1.Nombre.Equals(jugador.Nombre))
+                    {
+                        salas[i].Jugador1 = jugador;
+                    }
+                    else
+                    {
+                        salas[i].Jugador2 = jugador;
+                    }
+                    encontrado = true;
+                }
+                i++;
+            }
+
+            if (encontrado)
+            {
+                await Clients.Group(jugador.Sala).SendAsync("Espera");
+            }
         }
+
 
         private List<int> calculaSolucion()
         {
@@ -104,6 +132,19 @@ namespace Servidor.hubs
         public async Task MandaPisticha(string grupo, ObservableCollection<Pisticha> pista, int ronda)
         {
             await Clients.OthersInGroup(grupo).SendAsync("RecibePisticha", pista, ronda);
+        }
+
+        public async Task PideFinal(string grupo)
+        {
+            Sala sala = new Sala();
+            foreach (Sala s in salas)
+            {
+                if (s.NombreSala == grupo)
+                {
+                    sala = s;
+                }
+            }
+            await Clients.Group(sala.NombreSala).SendAsync("MandaFinal", sala);
         }
 
     }

@@ -59,6 +59,15 @@ namespace MegamindMAUI.VM
                 filasJuego[rondaRival].PistaRival = pistaRecibida;
             });
 
+            MegamindMAUI.Model.global.connection.On("Espera", () =>
+            {
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    resuelto++;
+                    mandaAlResultado();
+                });
+            });
+
             calculaRondaJugable();
             btnJugarCommand = new DelegateCommand(btnJugarCommandExecute, btnJugarCommandCanExecute);
         }
@@ -215,11 +224,16 @@ namespace MegamindMAUI.VM
 
         }
 
-        public async void mandaAlResultado()
+        public async Task mandaAlResultado()
         {
             if (resuelto == 2)
             {
-                await Shell.Current.GoToAsync("///Final");
+                var queryParams = new Dictionary<string, object>
+                 {
+                 { "NombreSala", jugador.Sala }
+                 };
+
+                await Shell.Current.GoToAsync("///Final", queryParams);
             }
         }
 
@@ -231,19 +245,12 @@ namespace MegamindMAUI.VM
                 MainThread.BeginInvokeOnMainThread(
                     async () =>
                     {
-                        await MegamindMAUI.Model.global.connection.InvokeAsync("Terminado", jugador.Sala);
+                        Jugador auxiliar = jugador;
+                        auxiliar.Puntuacion = ronda;
+                        await MegamindMAUI.Model.global.connection.InvokeAsync("Terminado", auxiliar);
                     }
                 );
-                MegamindMAUI.Model.global.connection.On("Espera", () =>
-                {
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        resuelto++;
-                        mandaAlResultado();
-
-                    });
-
-                });
+                
             }
         }
 

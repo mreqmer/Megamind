@@ -39,7 +39,7 @@
                        Padding="15"
                        HasShadow="True">
                     <VerticalStackLayout>
-                        <Label Text="Ganador"
+                        <Label Text="{Binding Resultado1}"
                                FontSize="18"
                                TextColor="Black"
                                FontAttributes="Bold"
@@ -63,7 +63,7 @@
                        Padding="15"
                        HasShadow="True">
                     <VerticalStackLayout>
-                        <Label Text="Perdedor"
+                        <Label Text="{Binding Resultado2}"
                                FontSize="18"
                                TextColor="Black"
                                FontAttributes="Bold"
