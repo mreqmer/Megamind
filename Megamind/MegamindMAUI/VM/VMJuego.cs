@@ -226,7 +226,7 @@ namespace MegamindMAUI.VM
 
         public async Task mandaAlResultado()
         {
-            if (resuelto == 2)
+            if (resuelto == 1)
             {
                 var queryParams = new Dictionary<string, object>
                  {
@@ -239,8 +239,8 @@ namespace MegamindMAUI.VM
 
         private async Task compruebaResultado()
         {
-            if (filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png"
-                && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png")
+            if (filasJuego[ronda].PistaPropia[0].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png"
+                && filasJuego[ronda].PistaPropia[2].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[3].FichaColor == "Rojo.png")
             {
                 MainThread.BeginInvokeOnMainThread(
                     async () =>

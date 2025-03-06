@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MegamindMAUI.Views.VistaFinal"
              xmlns:vmodel="clr-namespace:MegamindMAUI.VM"
-             Background="#7cacdf"
-             Title="Fin del Juego">
+             Background="#7cacdf">
 
     <ContentPage.BindingContext>
         <vmodel:VMFinal/>
