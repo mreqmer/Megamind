@@ -27,7 +27,8 @@ namespace MegamindMAUI.VM
         private DelegateCommand btnJugarCommand;
         private Ficha fichaACambiar;
         private int resuelto = 0;
-        private Jugador jugador = new Jugador("Pedro" ,"aaa", 0);
+        //private Jugador jugador = new Jugador("Pedro" ,"aaa", 0);
+        private Jugador jugador = new Jugador();
 
         #endregion
 
@@ -42,17 +43,22 @@ namespace MegamindMAUI.VM
         public Ficha Ficha { get { return ficha; } set { ficha = colorSeleccionado; OnPropertyChanged(nameof(Ficha)); } }
         public Ficha FichaACambiar { get { return fichaACambiar; } set { fichaACambiar = value; OnPropertyChanged("FichaACambiar"); cambiaficha(fichaACambiar); } }
         public int Resuelto { get { return resuelto; } set { resuelto = value; } }
-        public Jugador Jugador { get { return jugador; } set { jugador = value; } }
+        public Jugador Jugador { get { return jugador; } set { jugador = value;
+                OnJugadorCargado(); } }
         #endregion
 
         #region CONSTRUCTORES
 
         public VMJuego()
         {
-            
             coloresDisponibles();
             inicializaFilasJuego();
-            inicializaCombinacion();
+
+            MegamindMAUI.Model.global.connection.On<ObservableCollection<Pisticha>, int>("RecibePisticha", (pistaRecibida, rondaRival) =>
+            {
+                filasJuego[rondaRival].PistaRival = pistaRecibida;
+            });
+
             calculaRondaJugable();
             btnJugarCommand = new DelegateCommand(btnJugarCommandExecute, btnJugarCommandCanExecute);
         }
@@ -74,7 +80,7 @@ namespace MegamindMAUI.VM
 
         private async void btnJugarCommandExecute()
         {
-            cambiaPistichaPropia();
+            trabajaPisticha();
 
             await compruebaResultado();
 
@@ -121,17 +127,19 @@ namespace MegamindMAUI.VM
         }
 
 
-
+        private async void OnJugadorCargado()
+        {
+            // Asegurémonos de que el jugador tenga un valor antes de continuar
+            if (jugador != null)
+            {
+                // Lógica que depende del jugador, por ejemplo, unirse a la sala y obtener la solución
+                await inicializaCombinacion();
+            }
+        }
         private async Task inicializaCombinacion()
         {
             List<int> solucion = new List<int>();
-            await global.InicializaConexion();
-            MainThread.BeginInvokeOnMainThread(
-                async () =>
-                {
-                    await MegamindMAUI.Model.global.connection.InvokeAsync("UneSala", jugador.Sala, jugador);
-                }
-            );
+            
             MainThread.BeginInvokeOnMainThread(
                 async () =>
                 {
@@ -154,6 +162,8 @@ namespace MegamindMAUI.VM
         #endregion
 
         #region METODOS
+
+
         private void calculaRondaJugable()
         {
             foreach (ModelFila fila in filasJuego)
@@ -169,12 +179,15 @@ namespace MegamindMAUI.VM
         private void cambiaficha(Ficha ficha)
         {
             int index = filasJuego[ronda].Juego.IndexOf(ficha);
-            filasJuego[ronda].Juego[index].FichaColor = colorSeleccionado.FichaColor;
+            if (colorSeleccionado != null)
+            {
+                filasJuego[ronda].Juego[index].FichaColor = colorSeleccionado.FichaColor;
+            }
             BtnJugarCommand.RaiseCanExecuteChanged();
         }
 
 
-        private void cambiaPistichaPropia()
+        private async void trabajaPisticha()
         {
             for (int i = 0; i < 4; i++)
             {
@@ -197,11 +210,14 @@ namespace MegamindMAUI.VM
 
             filasJuego[ronda].PistaPropia = new ObservableCollection<Pisticha>(filasJuego[ronda].PistaPropia.OrderBy(p => p));
 
+            await MegamindMAUI.Model.global.connection.InvokeAsync("MandaPisticha", jugador.Sala, filasJuego[ronda].PistaPropia, ronda);
+
+
         }
 
         public async void mandaAlResultado()
         {
-            if (resuelto == 1)
+            if (resuelto == 2)
             {
                 await Shell.Current.GoToAsync("///Final");
             }

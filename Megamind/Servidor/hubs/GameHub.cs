@@ -1,6 +1,7 @@
 ﻿using ENT;
 using Microsoft.AspNetCore.SignalR;
 using Servidor.Model;
+using System.Collections.ObjectModel;
 using System.Xml.Linq;
 
 namespace Servidor.hubs
@@ -15,8 +16,8 @@ namespace Servidor.hubs
         public static Jugador jugador4 = new Jugador("Jugador 4", "2", 20);
 
         static List<Sala> salas = new List<Sala> { 
-            new Sala("aaa", jugador1, jugador2),
-            new Sala("bbb", jugador3, jugador4),
+            new Sala("aaa", jugador1),
+            new Sala("bbb", jugador3),
             new Sala("ccc", jugador1, jugador2),
             new Sala("aaddda", jugador1, jugador2)
         };
@@ -58,7 +59,16 @@ namespace Servidor.hubs
 
         public async Task MandaSalas()
         {
-            await Clients.All.SendAsync("RecibeSalas", salas);
+            List<Sala> salasVacias = new List<Sala>();
+
+            foreach(Sala s in salas)
+            {
+                if (s.Jugador2 == null)
+                {
+                    salasVacias.Add(s);
+                }
+            }
+            await Clients.All.SendAsync("RecibeSalas", salasVacias);
         }
 
         public async Task MandaSolucion(string salaId)
@@ -91,7 +101,10 @@ namespace Servidor.hubs
             return solucion;
         }
 
-
+        public async Task MandaPisticha(string grupo, ObservableCollection<Pisticha> pista, int ronda)
+        {
+            await Clients.OthersInGroup(grupo).SendAsync("RecibePisticha", pista, ronda);
+        }
 
     }
 }
