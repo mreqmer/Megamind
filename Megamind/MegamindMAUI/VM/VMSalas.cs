@@ -38,6 +38,18 @@ namespace MegamindMAUI.VM
 
             btnUnirseSalaCommand = new DelegateCommand(btnUnirseSalaCommand_Execute);
             inicializa();
+            MegamindMAUI.Model.global.connection.On<List<Sala>>("RecibeSalas", (solucion) =>
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    salas.Clear();
+                    foreach (var s in solucion)
+                    {
+                        salas.Add(new Sala(s));
+                    }
+
+                });
+            });
 
         }
         #endregion
@@ -88,18 +100,18 @@ namespace MegamindMAUI.VM
                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSalas");
                }
            );
-            MegamindMAUI.Model.global.connection.On<List<Sala>>("RecibeSalas", (solucion) =>
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    salas.Clear();
-                    foreach (var s in solucion)
-                    {
-                        salas.Add(new Sala(s));
-                    }
+            //MegamindMAUI.Model.global.connection.On<List<Sala>>("RecibeSalas", (solucion) =>
+            //{
+            //    MainThread.BeginInvokeOnMainThread(() =>
+            //    {
+            //        salas.Clear();
+            //        foreach (var s in solucion)
+            //        {
+            //            salas.Add(new Sala(s));
+            //        }
                    
-                });
-            });
+            //    });
+            //});
         }
 
         public async void gotoJuego()
