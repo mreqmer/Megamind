@@ -11,8 +11,8 @@ namespace MegamindMAUI.Model
     public class global
     {
        
-        //public static String url = "https://localhost:7227/GameHub";
-        public static String url = "https://megamindserver.azurewebsites.net/GameHub";
+        public static String url = "https://localhost:7227/GameHub";
+        //public static String url = "https://megamindserver.azurewebsites.net/GameHub";
         public static HubConnection connection;
 
         public static async Task InicializaConexion()

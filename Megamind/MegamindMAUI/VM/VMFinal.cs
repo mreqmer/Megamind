@@ -28,7 +28,7 @@ namespace MegamindMAUI.VM
         public string GanadorPuntuacion { get { return ganadorPuntuacion; } set { ganadorPuntuacion = value; OnPropertyChanged(nameof(GanadorPuntuacion)); } }
         public string PerdedorNombre { get { return perdedorNombre; } set { perdedorNombre = value; OnPropertyChanged(nameof(PerdedorNombre)); } }
         public string PerdedorPuntuacion { get { return perdedorPuntuacion; } set { perdedorPuntuacion = value; OnPropertyChanged(nameof(PerdedorPuntuacion)); } }
-        public string Sala { get { return sala; } set { sala = value; Inicializa(); OnPropertyChanged(nameof(Sala)); } }
+        public string Sala { get { return sala; } set { sala = value; OnPropertyChanged(nameof(Sala)); Inicializa(); } }
         public string Resultado1 { get { return resultado1; } set { resultado1 = value; OnPropertyChanged(nameof(Resultado1)); } }
         public string Resultado2 { get { return resultado2; } set { resultado2 = value; OnPropertyChanged(nameof(Resultado2)); } }
         public DelegateCommand BtnVolverCommand { get { return btnVolverCommand; } }
@@ -36,11 +36,19 @@ namespace MegamindMAUI.VM
         public VMFinal()
         {
             btnVolverCommand = new DelegateCommand(btnVolverCommandExecute);
+
+            MegamindMAUI.Model.global.connection.On<Sala>("MandaFinal", (salaCompleta) =>
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    InicializaDatos(salaCompleta);
+                });
+            });
         }
         private void InicializaDatos(Sala sala)
         {
             resultado1 = "Ganador";
-            resultado1 = "Perdedor";
+            resultado2 = "Perdedor";
             if (sala.Jugador1.Puntuacion > sala.Jugador2.Puntuacion)
             {
                 ganadorNombre = sala.Jugador1.Nombre;
@@ -60,10 +68,18 @@ namespace MegamindMAUI.VM
                 ganadorNombre = sala.Jugador1.Nombre;
                 ganadorPuntuacion = sala.Jugador1.Puntuacion.ToString();
                 resultado1 = "Empate";
+                
                 perdedorNombre = sala.Jugador2.Nombre;
                 perdedorPuntuacion = sala.Jugador2.Puntuacion.ToString();
-                resultado1 = "Empate";
+                resultado2 = "Empate";
             }
+
+            OnPropertyChanged(nameof(GanadorNombre));
+            OnPropertyChanged(nameof(PerdedorNombre));
+            OnPropertyChanged(nameof(GanadorPuntuacion));
+            OnPropertyChanged(nameof(PerdedorPuntuacion));
+            OnPropertyChanged(nameof(Resultado1));
+            OnPropertyChanged(nameof(Resultado2));
         }
 
         public async void btnVolverCommandExecute()
@@ -75,14 +91,7 @@ namespace MegamindMAUI.VM
         private async void Inicializa()
         {
             await MegamindMAUI.Model.global.connection.InvokeAsync("PideFinal", sala);
-
-            MegamindMAUI.Model.global.connection.On<Sala>("MandaFinal", (salaCompleta) =>
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    InicializaDatos(salaCompleta);
-                });
-            });
+  
         }
 
     }
