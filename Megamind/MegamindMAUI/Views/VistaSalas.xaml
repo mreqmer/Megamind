@@ -29,10 +29,7 @@
                             Margin="0,0,0,20"
                             SelectedItem="{Binding SalaSeleccionada}"
                             SelectionMode="Single">
-                <!-- Margen inferior de 20 -->
-
-                
-
+                <!-- Margen inferior de 20 -->            
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10" ColumnDefinitions="*, Auto" RowDefinitions="*, *">

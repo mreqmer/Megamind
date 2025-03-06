@@ -53,7 +53,17 @@ namespace Servidor.hubs
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, sala.NombreSala);
             salas.Add(sala);
-            
+            List<Sala> salasVacias = new List<Sala>();
+
+            foreach (Sala s in salas)
+            {
+                if (s.Jugador2 == null)
+                {
+                    salasVacias.Add(s);
+                }
+            }
+            await Clients.All.SendAsync("RecibeSalas", salasVacias);
+
         }
 
         public async Task DejaSala(string salaId)
