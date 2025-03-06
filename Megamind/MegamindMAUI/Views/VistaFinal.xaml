@@ -85,7 +85,7 @@
         <!-- Botón de volver -->
         <Button Grid.Row="2"
                 Text="Volver al Inicio"
-                Command="{Binding VolverCommand}"
+                Command="{Binding BtnVolverCommand}"
                 FontSize="16"
                 FontAttributes="Bold"
                 TextColor="White"
