@@ -66,9 +66,10 @@ namespace MegamindMAUI.VM
             }
         }
 
-        public void btnVolverCommandExecute()
+        public async void btnVolverCommandExecute()
         {
-            Console.WriteLine("pulsado");
+            App.Current.MainPage = new AppShell();
+            await Shell.Current.GoToAsync("///Inicio");
         }
 
         private async void Inicializa()
