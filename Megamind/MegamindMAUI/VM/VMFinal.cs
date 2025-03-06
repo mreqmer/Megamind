@@ -37,7 +37,7 @@ namespace MegamindMAUI.VM
         {
             btnVolverCommand = new DelegateCommand(btnVolverCommandExecute);
         }
-        private async void InicializaDatos(Sala sala)
+        private void InicializaDatos(Sala sala)
         {
             resultado1 = "Ganador";
             resultado1 = "Perdedor";
@@ -47,7 +47,8 @@ namespace MegamindMAUI.VM
                 ganadorPuntuacion = sala.Jugador1.Puntuacion.ToString();
                 perdedorNombre = sala.Jugador2.Nombre;
                 perdedorPuntuacion = sala.Jugador2.Puntuacion.ToString();
-            } else if (sala.Jugador1.Puntuacion > sala.Jugador2.Puntuacion)
+            }
+            else if (sala.Jugador2.Puntuacion > sala.Jugador1.Puntuacion)
             {
                 ganadorNombre = sala.Jugador2.Nombre;
                 ganadorPuntuacion = sala.Jugador2.Puntuacion.ToString();
@@ -76,7 +77,7 @@ namespace MegamindMAUI.VM
 
             MegamindMAUI.Model.global.connection.On<Sala>("MandaFinal", (salaCompleta) =>
             {
-                MainThread.BeginInvokeOnMainThread(async () =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     InicializaDatos(salaCompleta);
                 });
