@@ -18,9 +18,15 @@ namespace MegamindMAUI.VM
         private string nombreUsuario = "";
         private string nombreSala = "";
         private DelegateCommand btnCrearSalaCommand;
+        private bool esCargando = false;
+        private bool esBotonVisible = true;
+        private bool esTextoDesbloqueado = true;
         #endregion
 
         #region ATRIBUTOS
+        public bool EsCargando { get { return esCargando; } set { esCargando = value; OnPropertyChanged(nameof(EsCargando)); } }
+        public bool EsBotonVisible { get { return esBotonVisible; } set { esBotonVisible = value; OnPropertyChanged(nameof(EsCargando)); } }
+        public bool EsTextoDesbloqueado { get { return esTextoDesbloqueado; } set { esTextoDesbloqueado = value; OnPropertyChanged(nameof(EsTextoDesbloqueado)); } }
         public string NombreUsuario { get { return nombreUsuario; } set { nombreUsuario = value; OnPropertyChanged(nameof(NombreUsuario));  } }
         public string NombreSala { get { return nombreSala; } set { nombreSala = value; OnPropertyChanged(nameof(NombreSala)); } }
         public DelegateCommand BtnCrearSalaCommand { get { return btnCrearSalaCommand; } }
@@ -31,6 +37,16 @@ namespace MegamindMAUI.VM
         public VMNuevaSala()
         {
             btnCrearSalaCommand = new DelegateCommand(btnCrearSalaCommandExecute);
+            MegamindMAUI.Model.global.connection.On<bool>("SalaUnida", (unido) =>
+            {
+                MainThread.BeginInvokeOnMainThread(
+             async () =>
+             {
+                 //await Shell.Current.GoToAsync("///Megamind");
+                 await gotoJuego();
+             }
+         );
+            });
         }
 
         #endregion
@@ -49,9 +65,31 @@ namespace MegamindMAUI.VM
                   await MegamindMAUI.Model.global.connection.InvokeAsync("CreaSala", nuevaSala);
               }
           );
-            await Shell.Current.GoToAsync("///Salas");
+            //await Shell.Current.GoToAsync("///Salas");
+            esBotonVisible = false;
+            OnPropertyChanged(nameof(EsBotonVisible));
+            esCargando = true;
+            OnPropertyChanged(nameof(EsCargando));
+            esTextoDesbloqueado = false;
+            OnPropertyChanged(nameof(EsTextoDesbloqueado));
+        }
+
+        public void escucha()
+        {
+            
         }
         
+
+        public async Task gotoJuego()
+        {
+            Jugador jugador = new Jugador(nombreUsuario, nombreSala, 0);
+            var queryParams = new Dictionary<string, object>
+                    {
+                    { "jugador", jugador }
+                    };
+            await Shell.Current.GoToAsync("///Megamind", queryParams);
+        }
+
         #endregion
 
 

@@ -19,6 +19,8 @@
                    VerticalOptions="Start"
                    Margin="0,30,0,40"/>
 
+          
+
             <!-- CollectionView con margen inferior y scroll -->
             <CollectionView ItemsSource="{Binding Salas}"
                             MaximumWidthRequest="750"
@@ -28,6 +30,8 @@
                             SelectedItem="{Binding SalaSeleccionada}"
                             SelectionMode="Single">
                 <!-- Margen inferior de 20 -->
+
+                
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

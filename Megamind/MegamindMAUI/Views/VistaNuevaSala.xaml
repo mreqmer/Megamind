@@ -4,7 +4,6 @@
              x:Class="MegamindMAUI.Views.VistaNuevaSala"
              xmlns:vmodel="clr-namespace:MegamindMAUI.VM"
              Background="#7cacdf"
-             Title="VistaNuevaSala"
              Padding="20">
 
     <ContentPage.BindingContext>
@@ -40,7 +39,8 @@
                        Text="{Binding NombreUsuario}"
                        FontSize="16"
                        TextColor="Black"
-                       HorizontalTextAlignment="Center"/>
+                       HorizontalTextAlignment="Center"
+                       IsEnabled="{Binding EsTextoDesbloqueado}"/>
             </Frame>
 
             <!-- Campo nombre de sala -->
@@ -55,13 +55,30 @@
                        FontSize="16"
                        TextColor="Black"
                        HorizontalTextAlignment="Center"
-                       MaxLength="4"/>
+                       MaxLength="4"
+                       IsEnabled="{Binding EsTextoDesbloqueado}"/>
             </Frame>
         </VerticalStackLayout>
+        <VerticalStackLayout
+            Grid.Row="3" 
+            IsVisible="{Binding EsCargando}"
+            HorizontalOptions="Center"
+            >
+            <Label
+                Text="Cargando..."
+                />
 
+            <ActivityIndicator 
+                  IsRunning="True" 
+                  Color="Blue" 
+                  VerticalOptions="CenterAndExpand" 
+                  HorizontalOptions="CenterAndExpand"/>
+        </VerticalStackLayout>
+        
         <!-- Botón crear sala -->
         <Button Grid.Row="3"
                 Text="Crear Sala"
+                IsVisible="{Binding EsBotonVisible}"
                 Command="{Binding BtnCrearSalaCommand}"
                 FontSize="16"
                 FontAttributes="Bold"

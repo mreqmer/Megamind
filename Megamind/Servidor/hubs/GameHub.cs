@@ -40,16 +40,17 @@ namespace Servidor.hubs
             if (encontrado)
             {
                 await Groups.AddToGroupAsync(Context.ConnectionId, sala);
-                await Clients.All.SendAsync("SalaUnida", encontrado);
+                await Clients.Group(sala).SendAsync("SalaUnida", encontrado);
             }else
             {
-                await Clients.All.SendAsync("SalaUnida", encontrado);
+                await Clients.Group(sala).SendAsync("SalaUnida", encontrado);
             }
         }
         public async Task CreaSala(Sala sala)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, sala.NombreSala);
             salas.Add(sala);
+            
         }
 
         public async Task DejaSala(string salaId)
@@ -77,9 +78,28 @@ namespace Servidor.hubs
             await Clients.Group(salaId).SendAsync("RecibeSolucion", numeros);
         }
 
-        public async Task Terminado(string salaId)
+        public async Task Terminado(Jugador jugador)
         {
-            await Clients.Group(salaId).SendAsync("Espera");
+            int i = 0;
+            bool encontrado = false;
+
+            while (i < salas.Count && !encontrado)
+            {
+                if (salas[i].NombreSala.Equals(jugador.Sala))
+                {
+                    if(jugador1.Nombre.Equals(jugador.Nombre))
+                    {
+                        salas[i].Jugador1 = jugador;
+                    }
+                    else
+                    {
+                        salas[i].Jugador2 = jugador;
+                    }
+                    i++;
+                }
+            }
+
+            await Clients.Group(jugador.Sala).SendAsync("Espera");
         }
 
         private List<int> calculaSolucion()
