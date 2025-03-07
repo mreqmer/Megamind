@@ -24,7 +24,12 @@ namespace Servidor.hubs
             new Sala("aaddda", jugador1, jugador2),
             new Sala("2211", jugador5, jugador6)
         };
-        
+
+        //Debug only
+        public static List<Sala> ObtenerSalasActivas()
+        {
+            return salas;
+        }
 
         public async Task UneSala(String sala, Jugador jugador)
         {
@@ -51,19 +56,24 @@ namespace Servidor.hubs
         }
         public async Task CreaSala(Sala sala)
         {
+            bool salaExiste = salas.Any(s => s.NombreSala.Equals(sala.NombreSala));
+
+            if (salaExiste)
+            {
+                await Clients.Caller.SendAsync("SalaCreada", false);
+                return;
+            }
+
             await Groups.AddToGroupAsync(Context.ConnectionId, sala.NombreSala);
             salas.Add(sala);
-            List<Sala> salasVacias = new List<Sala>();
 
-            foreach (Sala s in salas)
-            {
-                if (s.Jugador2 == null)
-                {
-                    salasVacias.Add(s);
-                }
-            }
+            await Clients.Caller.SendAsync("SalaCreada", true);
+
+            List<Sala> salasVacias = salas.Where(s => s.Jugador2 == null).ToList();
             await Clients.All.SendAsync("RecibeSalas", salasVacias);
 
+            // Notificar al cliente que se ha unido a la sala
+            await Clients.Caller.SendAsync("SalaUnida", true);
         }
 
         public async Task DejaSala(string salaId)

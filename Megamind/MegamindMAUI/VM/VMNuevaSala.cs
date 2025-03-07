@@ -21,6 +21,7 @@ namespace MegamindMAUI.VM
         private bool esCargando = false;
         private bool esBotonVisible = true;
         private bool esTextoDesbloqueado = true;
+        private bool esMensajeSalaExistente = false;
         #endregion
 
         #region ATRIBUTOS
@@ -30,6 +31,7 @@ namespace MegamindMAUI.VM
         public string NombreUsuario { get { return nombreUsuario; } set { nombreUsuario = value; OnPropertyChanged(nameof(NombreUsuario));  } }
         public string NombreSala { get { return nombreSala; } set { nombreSala = value; OnPropertyChanged(nameof(NombreSala)); } }
         public DelegateCommand BtnCrearSalaCommand { get { return btnCrearSalaCommand; } }
+        public bool EsMensajeSalaExistente { get { return esMensajeSalaExistente; } set { esMensajeSalaExistente = value; OnPropertyChanged(nameof(EsMensajeSalaExistente)); } }
         #endregion
 
         #region CONSTRUCTORES
@@ -37,17 +39,48 @@ namespace MegamindMAUI.VM
         public VMNuevaSala()
         {
             btnCrearSalaCommand = new DelegateCommand(btnCrearSalaCommandExecute);
-            MegamindMAUI.Model.global.connection.On<bool>("SalaUnida", (unido) =>
+
+            MegamindMAUI.Model.global.connection.On<bool>("SalaCreada", (creada) =>
             {
-                MainThread.BeginInvokeOnMainThread(
-             async () =>
-             {
-                 //await Shell.Current.GoToAsync("///Megamind");
-                 await gotoJuego();
-             }
-         );
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    if (creada)
+                    {
+                        esBotonVisible = false;
+                        OnPropertyChanged(nameof(EsBotonVisible));
+                        esCargando = true;
+                        OnPropertyChanged(nameof(EsCargando));
+                        esTextoDesbloqueado = false;
+                        OnPropertyChanged(nameof(EsTextoDesbloqueado));
+
+                        // Esperar a recibir la confirmación de que se ha unido a la sala
+                        MegamindMAUI.Model.global.connection.On<bool>("SalaUnida", (unido) =>
+                        {
+                            MainThread.BeginInvokeOnMainThread(async () =>
+                            {
+                                if (unido)
+                                {
+                                    await gotoJuego();
+                                }
+                                else
+                                {
+                                    esMensajeSalaExistente = true;
+                                    OnPropertyChanged(nameof(EsMensajeSalaExistente));
+                                    RestaurarEstadosUI();
+                                }
+                            });
+                        });
+                    }
+                    else
+                    {
+                        esMensajeSalaExistente = true;
+                        OnPropertyChanged(nameof(EsMensajeSalaExistente));
+                        RestaurarEstadosUI();
+                    }
+                });
             });
         }
+
 
         #endregion
 
@@ -59,26 +92,30 @@ namespace MegamindMAUI.VM
             
             Sala nuevaSala = new Sala(nombreSala, jugador);
 
-            MainThread.BeginInvokeOnMainThread(
-              async () =>
-              {
-                  await MegamindMAUI.Model.global.connection.InvokeAsync("CreaSala", nuevaSala);
-              }
-          );
-            //await Shell.Current.GoToAsync("///Salas");
-            esBotonVisible = false;
-            OnPropertyChanged(nameof(EsBotonVisible));
+            //  MainThread.BeginInvokeOnMainThread(
+            //    async () =>
+            //    {
+            //        await MegamindMAUI.Model.global.connection.InvokeAsync("CreaSala", nuevaSala);
+            //    }
+            //);
             esCargando = true;
             OnPropertyChanged(nameof(EsCargando));
             esTextoDesbloqueado = false;
             OnPropertyChanged(nameof(EsTextoDesbloqueado));
+            esMensajeSalaExistente = false;
+            OnPropertyChanged(nameof(EsMensajeSalaExistente));
+
+            await MegamindMAUI.Model.global.connection.InvokeAsync("CreaSala", nuevaSala);
         }
 
-        public void escucha()
+        private void RestaurarEstadosUI()
         {
-            
+            esCargando = false;
+            OnPropertyChanged(nameof(EsCargando));
+            esTextoDesbloqueado = true;
+            OnPropertyChanged(nameof(EsTextoDesbloqueado));
         }
-        
+
 
         public async Task gotoJuego()
         {
