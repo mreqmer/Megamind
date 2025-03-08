@@ -7,14 +7,14 @@ namespace Servidor.Model
     {
         #region ATRIBUTOS
         private string nombreSala;
-        private Jugador jugador1;
-        private Jugador jugador2;
+        private Jugador? jugador1;
+        private Jugador? jugador2;
         #endregion
 
         #region PROPIEDADES
         public string NombreSala { get { return nombreSala; } set { nombreSala = value; } }
-        public Jugador Jugador1 { get { return jugador1; } set { jugador1 = value; } }
-        public Jugador Jugador2 { get { return jugador2; } set { jugador2 = value; } }
+        public Jugador? Jugador1 { get { return jugador1; } set { jugador1 = value; } }
+        public Jugador? Jugador2 { get { return jugador2; } set { jugador2 = value; } }
         #endregion
 
         #region CONSTRUCTORES

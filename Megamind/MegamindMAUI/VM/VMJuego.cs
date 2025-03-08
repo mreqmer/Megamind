@@ -20,6 +20,7 @@ namespace MegamindMAUI.VM
         #region ATRIBUTOS
         private ObservableCollection<ModelFila> filasJuego = new ObservableCollection<ModelFila>();
         private ObservableCollection<Ficha> tablero = new ObservableCollection<Ficha>();
+        private ObservableCollection<Ficha> combinacionVisible = new ObservableCollection<Ficha> { new Ficha("nada"), new Ficha("nada"), new Ficha("nada"), new Ficha("nada") };
         private ObservableCollection<Ficha> combinacion = new ObservableCollection<Ficha>();
         private Ficha colorSeleccionado;
         private Ficha ficha;
@@ -36,6 +37,7 @@ namespace MegamindMAUI.VM
         public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; BtnJugarCommand.RaiseCanExecuteChanged(); } }
         public ObservableCollection<Ficha> Tablero { get { return tablero; } }
         public ObservableCollection<Ficha> Combinacion { get { return combinacion;} set { combinacion = value; } }
+        public ObservableCollection<Ficha> CombinacionVisible { get { return combinacionVisible; }  }
         public Ficha ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; OnPropertyChanged(nameof(ColorSeleccionado)); } }
         public int Ronda { get { return ronda; } set { ronda = value; } }
         public DelegateCommand BtnJugarCommand { get { return btnJugarCommand; } }
@@ -274,7 +276,7 @@ namespace MegamindMAUI.VM
             {
                 var queryParams = new Dictionary<string, object>
                  {
-                 { "NombreSala", jugador.Sala }
+                 { "Jugador", jugador }
                  };
 
                 await Shell.Current.GoToAsync("///Final", queryParams);

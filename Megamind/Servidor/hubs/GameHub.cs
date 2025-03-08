@@ -49,15 +49,18 @@ namespace Servidor.hubs
             {
                 await Groups.AddToGroupAsync(Context.ConnectionId, sala);
                 await Clients.Group(sala).SendAsync("SalaUnida", encontrado);
-            }else
+                List<Sala> salasVacias = salas.Where(s => s.Jugador2 == null).ToList();
+                await Clients.All.SendAsync("RecibeSalas", salasVacias);
+            }
+            else
             {
                 await Clients.Group(sala).SendAsync("SalaUnida", encontrado);
             }
         }
+
         public async Task CreaSala(Sala sala)
         {
             bool salaExiste = salas.Any(s => s.NombreSala.Equals(sala.NombreSala));
-
             if (salaExiste)
             {
                 await Clients.Caller.SendAsync("SalaCreada", false);
@@ -76,9 +79,36 @@ namespace Servidor.hubs
             await Clients.Caller.SendAsync("SalaUnida", true);
         }
 
-        public async Task DejaSala(string salaId)
+        public async Task DejaSala(Jugador jugador)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, salaId);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, jugador.Sala);
+
+            int i = 0;
+            bool jugadorEliminado = false;
+
+            while (i < salas.Count && !jugadorEliminado)
+            {
+
+                if (salas[i].Jugador1 != null && salas[i].Jugador1.Nombre == jugador.Nombre)
+                {
+                    salas[i].Jugador1 = null;
+                    jugadorEliminado = true;
+                }
+                else if (salas[i].Jugador2 != null && salas[i].Jugador2.Nombre == jugador.Nombre)
+                {
+                    salas[i].Jugador2 = null;
+                    jugadorEliminado = true;
+                }
+                if(salas[i].Jugador1 == null && salas[i].Jugador2 == null)
+                {
+                    jugadorEliminado = true;
+                    salas.Remove(salas[i]);
+                }
+
+                i++;
+            }
+
+
         }
 
         public async Task MandaSalas()
@@ -166,6 +196,44 @@ namespace Servidor.hubs
             }
             await Clients.Group(sala.NombreSala).SendAsync("MandaFinal", sala);
         }
+
+
+        //public override async Task OnDisconnectedAsync(Exception exception)
+        //{
+        //    // Obtener el nombre del jugador desde el contexto
+        //    if (Context.Items.TryGetValue("NombreJugador", out var nombreJugadorObj) && nombreJugadorObj is string nombreJugador)
+        //    {
+        //        // Obtener todas las salas donde el jugador desconectado está presente
+        //        var salasConJugador = salas.Where(s =>
+        //            (s.Jugador1 != null && s.Jugador1.Nombre == nombreJugador) || // Comparar por nombre
+        //            (s.Jugador2 != null && s.Jugador2.Nombre == nombreJugador)    // Comparar por nombre
+        //        ).ToList();
+
+        //        foreach (var sala in salasConJugador)
+        //        {
+        //            if (sala.Jugador1 != null && sala.Jugador1.Nombre == nombreJugador)
+        //            {
+        //                sala.Jugador1 = null;
+        //                await Clients.Group(sala.NombreSala).SendAsync("JugadorDesconectado", "Jugador 1 se ha desconectado.");
+        //            }
+        //            else if (sala.Jugador2 != null && sala.Jugador2.Nombre == nombreJugador)
+        //            {
+        //                sala.Jugador2 = null;
+        //                await Clients.Group(sala.NombreSala).SendAsync("JugadorDesconectado", "Jugador 2 se ha desconectado.");
+        //            }
+
+        //            // Si no quedan jugadores en la sala, cerrar la sala
+        //            if (sala.Jugador1 == null && sala.Jugador2 == null)
+        //            {
+        //                salas.Remove(sala);
+        //                await Clients.Group(sala.NombreSala).SendAsync("SalaCerrada", "La sala se ha cerrado porque todos los jugadores se han desconectado.");
+        //                await Groups.RemoveFromGroupAsync(Context.ConnectionId, sala.NombreSala);
+        //            }
+        //        }
+        //    }
+
+        //    await base.OnDisconnectedAsync(exception);
+        //}
 
     }
 }

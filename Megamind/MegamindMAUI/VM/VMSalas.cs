@@ -116,12 +116,16 @@ namespace MegamindMAUI.VM
 
         public async void gotoJuego()
         {
-            Jugador jugador = new Jugador(NombreJugador, salaSeleccionada.NombreSala, 0);
-            var queryParams = new Dictionary<string, object>
+            if (salaSeleccionada != null)
+            {
+                Jugador jugador = new Jugador(NombreJugador, salaSeleccionada.NombreSala, 0);
+                var queryParams = new Dictionary<string, object>
                     {
                     { "jugador", jugador }
                     };
-            await Shell.Current.GoToAsync("///Megamind", queryParams);
+                await Shell.Current.GoToAsync("///Megamind", queryParams);
+            }
+            
         }
 
 

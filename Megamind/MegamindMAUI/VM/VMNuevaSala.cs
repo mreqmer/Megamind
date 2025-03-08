@@ -119,7 +119,9 @@ namespace MegamindMAUI.VM
 
         public async Task gotoJuego()
         {
+            
             Jugador jugador = new Jugador(nombreUsuario, nombreSala, 0);
+
             var queryParams = new Dictionary<string, object>
                     {
                     { "jugador", jugador }
