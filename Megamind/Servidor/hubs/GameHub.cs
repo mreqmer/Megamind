@@ -10,20 +10,22 @@ namespace Servidor.hubs
     {
         //static List<Sala> salas = new List<Sala>();
 
-        public static Jugador jugador1 = new Jugador("Jugador 1", "1", 10);
-        public static Jugador jugador2 = new Jugador("Jugador 2", "2", 20);
-        public static Jugador jugador3 = new Jugador("Jugador 3", "2", 20);
-        public static Jugador jugador4 = new Jugador("Jugador 4", "2", 20);
-        public static Jugador jugador5 = new Jugador("Pepi", "2211", 20);
-        public static Jugador jugador6 = new Jugador("Ruben", "2211", 20);
+        //public static Jugador jugador1 = new Jugador("Jugador 1", "1", 10);
+        //public static Jugador jugador2 = new Jugador("Jugador 2", "2", 20);
+        //public static Jugador jugador3 = new Jugador("Jugador 3", "2", 20);
+        //public static Jugador jugador4 = new Jugador("Jugador 4", "2", 20);
+        //public static Jugador jugador5 = new Jugador("Pepi", "2211", 20);
+        //public static Jugador jugador6 = new Jugador("Ruben", "2211", 20);
 
-        static List<Sala> salas = new List<Sala> {
-            new Sala("aaa", jugador1),
-            new Sala("bbb", jugador3),
-            new Sala("ccc", jugador1, jugador2),
-            new Sala("aaddda", jugador1, jugador2),
-            new Sala("2211", jugador5, jugador6)
-        };
+        //static List<Sala> salas = new List<Sala> {
+        //    new Sala("aaa", jugador1),
+        //    new Sala("bbb", jugador3),
+        //    new Sala("ccc", jugador1, jugador2),
+        //    new Sala("aaddda", jugador1, jugador2),
+        //    new Sala("2211", jugador5, jugador6)
+        //};
+
+        static List<Sala> salas = new List<Sala>();
 
         //Debug only
         public static List<Sala> ObtenerSalasActivas()

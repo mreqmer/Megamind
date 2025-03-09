@@ -202,30 +202,6 @@ namespace MegamindMAUI.VM
 
         private async void trabajaPisticha()
         {
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    if (filasJuego[ronda].Juego[i].FichaColor == combinacion[i].FichaColor)
-            //    {
-            //        // Si est� en la posici�n correcta, asignamos "Rojo"
-            //        filasJuego[ronda].PistaPropia[i] = new Pisticha("Rojo");
-            //    }
-            //    else if (combinacion.Any(ficha => ficha.FichaColor == filasJuego[ronda].Juego[i].FichaColor))
-            //    {
-            //        // Si est� en la combinaci�n pero en otra posici�n, asignamos "Blanco"
-            //        filasJuego[ronda].PistaPropia[i] = new Pisticha("Blanco");
-            //    }
-            //    else
-            //    {
-            //        // Si no est� en la combinaci�n, asignamos "Nada"
-            //        filasJuego[ronda].PistaPropia[i] = new Pisticha("Nada");
-            //    }
-            //}
-
-            //filasJuego[ronda].PistaPropia = new ObservableCollection<Pisticha>(filasJuego[ronda].PistaPropia.OrderBy(p => p));
-
-            //await MegamindMAUI.Model.global.connection.InvokeAsync("MandaPisticha", jugador.Sala, filasJuego[ronda].PistaPropia, ronda);
-
-
             var pistas = new List<Pisticha>();
 
             var combinacionRestante = combinacion.ToList();
@@ -287,8 +263,8 @@ namespace MegamindMAUI.VM
         {
             bool terminado = false;
 
-            if (filasJuego[ronda].PistaPropia[0].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png"
-                && filasJuego[ronda].PistaPropia[2].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[3].FichaColor == "Rojo.png")
+            if ((filasJuego[ronda].PistaPropia[0].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png"
+                && filasJuego[ronda].PistaPropia[2].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[3].FichaColor == "Rojo.png") || ronda == 9)
             {
                 foreach (ModelFila f in filasJuego)
                 {
