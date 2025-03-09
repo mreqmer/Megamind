@@ -13,7 +13,7 @@ namespace MegamindMAUI.VM
     [QueryProperty(nameof(Jugador), "Jugador")]
     public class VMFinal : ClsVMBase
     {
-        //TODO implementar el servidor
+        #region ATRIBUTOS
         private string ganadorNombre = "";
         private string ganadorPuntuacion = "";
         private string perdedorNombre = "";
@@ -23,8 +23,9 @@ namespace MegamindMAUI.VM
         private string resultado2;
         private DelegateCommand btnVolverCommand;
         private Jugador jugador;
+        #endregion
 
-
+        #region PROPIEDADES
         public string GanadorNombre { get { return ganadorNombre; } set { ganadorNombre = value; OnPropertyChanged(nameof(GanadorNombre)); } }
         public string GanadorPuntuacion { get { return ganadorPuntuacion; } set { ganadorPuntuacion = value; OnPropertyChanged(nameof(GanadorPuntuacion)); } }
         public string PerdedorNombre { get { return perdedorNombre; } set { perdedorNombre = value; OnPropertyChanged(nameof(PerdedorNombre)); } }
@@ -34,7 +35,9 @@ namespace MegamindMAUI.VM
         public string Resultado2 { get { return resultado2; } set { resultado2 = value; OnPropertyChanged(nameof(Resultado2)); } }
         public DelegateCommand BtnVolverCommand { get { return btnVolverCommand; } }
         public Jugador Jugador { get { return jugador; } set { jugador = value; Inicializa(); OnPropertyChanged(nameof(Jugador)); }  }
+        #endregion
 
+        #region CONSTRUCTORES
         public VMFinal()
         {
             btnVolverCommand = new DelegateCommand(btnVolverCommandExecute);
@@ -48,6 +51,14 @@ namespace MegamindMAUI.VM
 
 
         }
+        #endregion
+
+        #region METODOS
+
+        /// <summary>
+        /// Inicializa los datos de la pantalla para calcular el ganador y el perdedor
+        /// </summary>
+        /// <param name="sala"></param>
         private void InicializaDatos(Sala sala)
         {
             resultado1 = "Ganador";
@@ -82,7 +93,22 @@ namespace MegamindMAUI.VM
             OnPropertyChanged(nameof(Resultado1));
             OnPropertyChanged(nameof(Resultado2));
         }
+        /// <summary>
+        /// Inicializa la pantalla y llama al servidor para calcular el ganador y el perdedor
+        /// </summary>
+        private async void Inicializa()
+        {
+            sala = jugador.Sala;
 
+            await MegamindMAUI.Model.global.connection.InvokeAsync("PideFinal", sala);
+        }
+        #endregion
+
+        #region COMMANDS
+
+        /// <summary>
+        /// Comando para volver a la pantalla de inicio y dejar la sala
+        /// </summary>
         public async void btnVolverCommandExecute()
         {
             App.Current.MainPage = new AppShell();
@@ -96,15 +122,8 @@ namespace MegamindMAUI.VM
           );
 
         }
-
-        private async void Inicializa()
-        {
-            sala = jugador.Sala;
-
-            await MegamindMAUI.Model.global.connection.InvokeAsync("PideFinal", sala);
-
-           
-        }
+        #endregion
+        
 
     }
 }

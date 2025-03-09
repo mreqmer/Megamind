@@ -26,7 +26,7 @@ namespace MegamindMAUI.VM
         #endregion
 
         #region Propiedades
-        public string Username { get { return username; } set { username = value; OnPropertyChanged(nameof(Username)); BtnPlayCommand.RaiseCanExecuteChanged(); } }
+        public string Username { get { return username; } set { username = value; OnPropertyChanged(nameof(Username)); BtnPlayCommand.RaiseCanExecuteChanged(); }}
         public DelegateCommand BtnNuevaSalaCommand { get { return btnNuevaSalaCommand; } }
         public DelegateCommand BtnUnirseSalaCommand { get { return btnUnirseSalaCommand; } }
         public double OpacidadBtnInicio { get { return opacidadBtnInicio; } set { opacidadBtnInicio = value; } }
@@ -98,7 +98,6 @@ namespace MegamindMAUI.VM
         }
         #endregion
 
-
         #region Metodos
         /// <summary>
         /// Animacion de fadeout para que se quite la visibilidad de inicio
@@ -152,7 +151,10 @@ namespace MegamindMAUI.VM
             }
         }
 
-
+        /// <summary>
+        /// Espera a que se establezca la conexión con el servidor
+        /// </summary>
+        /// <returns></returns>
         private async Task esperarConexion()
         {
             await global.InicializaConexion();

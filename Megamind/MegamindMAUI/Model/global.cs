@@ -10,9 +10,10 @@ namespace MegamindMAUI.Model
 {
     public class global
     {
-       
+        //Comentar según convenga para hacer pruebas en local o en Azure
         public static String url = "https://localhost:7227/GameHub";
         //public static String url = "https://megamindserver.azurewebsites.net/GameHub";
+
         public static HubConnection connection;
 
         public static async Task InicializaConexion()
@@ -23,7 +24,7 @@ namespace MegamindMAUI.Model
                 {
                     connection = new HubConnectionBuilder()
                         .WithUrl(url)
-                        .WithAutomaticReconnect() // 📌 Agregar reconexión automática
+                        .WithAutomaticReconnect() 
                         .Build();
                 }
 

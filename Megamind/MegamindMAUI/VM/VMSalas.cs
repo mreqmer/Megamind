@@ -16,7 +16,6 @@ namespace MegamindMAUI.VM
     {
 
         #region PROPIEDADES
-        //TODO borrar esto cuando se implemente la sala
         private string nombreJugador;
         private ObservableCollection<Sala> salas = new ObservableCollection<Sala>();
         private DelegateCommand btnRecargaSalasCommand;
@@ -44,7 +43,7 @@ namespace MegamindMAUI.VM
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     salas.Clear();
-                    foreach (var s in solucion)
+                    foreach (Sala s in solucion)
                     {
                         salas.Add(new Sala(s));
                     }
@@ -56,12 +55,16 @@ namespace MegamindMAUI.VM
         #endregion
 
         #region COMMANDS
-
+        /// <summary>
+        /// Botón para recargar las salas
+        /// </summary>
         public void btnRecargaSalasCommand_Execute()
         {
             inicializa();
         }
-
+        /// <summary>
+        /// Botón para unirse a una sala
+        /// </summary>
         public async void btnUnirseSalaCommand_Execute()
         {
             bool bandera = false;
@@ -92,12 +95,14 @@ namespace MegamindMAUI.VM
 
         }
 
-        
+
 
         #endregion
 
         #region METODOS
-
+        /// <summary>
+        /// Inicializa las salas
+        /// </summary>
         public void inicializa()
         {
             MainThread.BeginInvokeOnMainThread(
@@ -106,20 +111,12 @@ namespace MegamindMAUI.VM
                    await MegamindMAUI.Model.global.connection.InvokeAsync("MandaSalas");
                }
            );
-            //MegamindMAUI.Model.global.connection.On<List<Sala>>("RecibeSalas", (solucion) =>
-            //{
-            //    MainThread.BeginInvokeOnMainThread(() =>
-            //    {
-            //        salas.Clear();
-            //        foreach (var s in solucion)
-            //        {
-            //            salas.Add(new Sala(s));
-            //        }
-                   
-            //    });
-            //});
+           
         }
 
+        /// <summary>
+        /// Método para ir a la vista del juego
+        /// </summary>
         public async void gotoJuego()
         {
             if (salaSeleccionada != null)
@@ -133,8 +130,6 @@ namespace MegamindMAUI.VM
             }
             
         }
-
-
 
         #endregion
 

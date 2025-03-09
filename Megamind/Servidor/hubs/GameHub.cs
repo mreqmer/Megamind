@@ -33,6 +33,12 @@ namespace Servidor.hubs
             return salas;
         }
 
+        /// <summary>
+        /// Une un jugador a una sala
+        /// </summary>
+        /// <param name="sala"></param>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
         public async Task UneSala(String sala, Jugador jugador)
         {
             bool encontrado = false;
@@ -60,6 +66,11 @@ namespace Servidor.hubs
             }
         }
 
+        /// <summary>
+        /// Crea una sala, si no existe ya
+        /// </summary>
+        /// <param name="sala"></param>
+        /// <returns></returns>
         public async Task CreaSala(Sala sala)
         {
             bool salaExiste = salas.Any(s => s.NombreSala.Equals(sala.NombreSala));
@@ -81,6 +92,11 @@ namespace Servidor.hubs
             await Clients.Caller.SendAsync("SalaUnida", true);
         }
 
+        /// <summary>
+        /// Deja una sala y elimina al jugador de la lista de jugadores de la sala correspondiente
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
         public async Task DejaSala(Jugador jugador)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, jugador.Sala);
@@ -113,6 +129,10 @@ namespace Servidor.hubs
 
         }
 
+        /// <summary>
+        /// Manda las salas vacías a todos los clientes
+        /// </summary>
+        /// <returns></returns>
         public async Task MandaSalas()
         {
             List<Sala> salasVacias = new List<Sala>();
@@ -127,12 +147,22 @@ namespace Servidor.hubs
             await Clients.All.SendAsync("RecibeSalas", salasVacias);
         }
 
+        /// <summary>
+        /// Manda la solución a los jugadores de una sala concreta
+        /// </summary>
+        /// <param name="salaId"></param>
+        /// <returns></returns>
         public async Task MandaSolucion(string salaId)
         {
             List<int> numeros = calculaSolucion();
             await Clients.Group(salaId).SendAsync("RecibeSolucion", numeros);
         }
 
+        /// <summary>
+        /// Manda la pista a los jugadores de una sala concreta
+        /// </summary>
+        /// <param name="jugador"></param>
+        /// <returns></returns>
         public async Task Terminado(Jugador jugador)
         {
             int i = 0;
@@ -161,7 +191,10 @@ namespace Servidor.hubs
             }
         }
 
-
+        /// <summary>
+        /// Calcula la solución del juego
+        /// </summary>
+        /// <returns></returns>
         private List<int> calculaSolucion()
         {
             int indice = 0;
@@ -181,11 +214,23 @@ namespace Servidor.hubs
             return solucion;
         }
 
+        /// <summary>
+        /// Manda la pista a los jugadores de una sala concreta 
+        /// </summary>
+        /// <param name="grupo"></param>
+        /// <param name="pista"></param>
+        /// <param name="ronda"></param>
+        /// <returns></returns>
         public async Task MandaPisticha(string grupo, ObservableCollection<Pisticha> pista, int ronda)
         {
             await Clients.OthersInGroup(grupo).SendAsync("RecibePisticha", pista, ronda);
         }
 
+        /// <summary>
+        /// Manda el final del juego a los jugadores de una sala concreta
+        /// </summary>
+        /// <param name="grupo"></param>
+        /// <returns></returns>
         public async Task PideFinal(string grupo)
         {
             Sala sala = new Sala();
@@ -199,7 +244,7 @@ namespace Servidor.hubs
             await Clients.Group(sala.NombreSala).SendAsync("MandaFinal", sala);
         }
 
-
+        
         //public override async Task OnDisconnectedAsync(Exception exception)
         //{
         //    // Obtener el nombre del jugador desde el contexto

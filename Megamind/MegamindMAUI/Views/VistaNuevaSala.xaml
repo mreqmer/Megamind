@@ -65,7 +65,7 @@
             HorizontalOptions="Center"
             >
             <Label
-                Text="Cargando..."
+                Text="Esperando jugadores..."
                 />
 
             <ActivityIndicator 

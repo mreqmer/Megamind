@@ -28,8 +28,8 @@ namespace MegamindMAUI.VM
         public bool EsCargando { get { return esCargando; } set { esCargando = value; OnPropertyChanged(nameof(EsCargando)); } }
         public bool EsBotonVisible { get { return esBotonVisible; } set { esBotonVisible = value; OnPropertyChanged(nameof(EsCargando)); } }
         public bool EsTextoDesbloqueado { get { return esTextoDesbloqueado; } set { esTextoDesbloqueado = value; OnPropertyChanged(nameof(EsTextoDesbloqueado)); } }
-        public string NombreUsuario { get { return nombreUsuario; } set { nombreUsuario = value; OnPropertyChanged(nameof(NombreUsuario));  } }
-        public string NombreSala { get { return nombreSala; } set { nombreSala = value; OnPropertyChanged(nameof(NombreSala)); } }
+        public string NombreUsuario { get { return nombreUsuario; } set { nombreUsuario = value; OnPropertyChanged(nameof(NombreUsuario)); BtnCrearSalaCommand.RaiseCanExecuteChanged(); } }
+        public string NombreSala { get { return nombreSala; } set { nombreSala = value; OnPropertyChanged(nameof(NombreSala)); BtnCrearSalaCommand.RaiseCanExecuteChanged(); } }
         public DelegateCommand BtnCrearSalaCommand { get { return btnCrearSalaCommand; } }
         public bool EsMensajeSalaExistente { get { return esMensajeSalaExistente; } set { esMensajeSalaExistente = value; OnPropertyChanged(nameof(EsMensajeSalaExistente)); } }
         #endregion
@@ -38,7 +38,7 @@ namespace MegamindMAUI.VM
 
         public VMNuevaSala()
         {
-            btnCrearSalaCommand = new DelegateCommand(btnCrearSalaCommandExecute);
+            btnCrearSalaCommand = new DelegateCommand(btnCrearSalaCommandExecute, btnCrearSalaCommandCanExecute);
 
             MegamindMAUI.Model.global.connection.On<bool>("SalaCreada", (creada) =>
             {
@@ -85,19 +85,20 @@ namespace MegamindMAUI.VM
         #endregion
 
         #region COMMANDS
+        public bool btnCrearSalaCommandCanExecute()
+        {
+            return !string.IsNullOrEmpty(nombreUsuario) && !string.IsNullOrEmpty(nombreSala);
+        }
 
+        /// <summary>
+        /// Botón para crear una sala
+        /// </summary>
         public async void btnCrearSalaCommandExecute()
         {
             Jugador jugador = new Jugador(NombreUsuario, NombreSala, 0);
             
             Sala nuevaSala = new Sala(nombreSala, jugador);
 
-            //  MainThread.BeginInvokeOnMainThread(
-            //    async () =>
-            //    {
-            //        await MegamindMAUI.Model.global.connection.InvokeAsync("CreaSala", nuevaSala);
-            //    }
-            //);
             esCargando = true;
             OnPropertyChanged(nameof(EsCargando));
             esTextoDesbloqueado = false;
@@ -107,7 +108,9 @@ namespace MegamindMAUI.VM
 
             await MegamindMAUI.Model.global.connection.InvokeAsync("CreaSala", nuevaSala);
         }
-
+        /// <summary>
+        /// Restaura los estados de la UI a los valores iniciales
+        /// </summary>
         private void RestaurarEstadosUI()
         {
             esCargando = false;
@@ -116,7 +119,10 @@ namespace MegamindMAUI.VM
             OnPropertyChanged(nameof(EsTextoDesbloqueado));
         }
 
-
+        /// <summary>
+        /// Navega a la vista de juego
+        /// </summary>
+        /// <returns></returns>
         public async Task gotoJuego()
         {
             

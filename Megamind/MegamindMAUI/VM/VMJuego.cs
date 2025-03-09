@@ -16,7 +16,6 @@ namespace MegamindMAUI.VM
     [QueryProperty(nameof(Jugador), "jugador")]
     public class VMJuego : ClsVMBase
     {
-        //TODO: Implementar propiedades del juego
         #region ATRIBUTOS
         private ObservableCollection<ModelFila> filasJuego = new ObservableCollection<ModelFila>();
         private ObservableCollection<Ficha> tablero = new ObservableCollection<Ficha>();
@@ -28,7 +27,6 @@ namespace MegamindMAUI.VM
         private DelegateCommand btnJugarCommand;
         private Ficha fichaACambiar;
         private int resuelto = 0;
-        //private Jugador jugador = new Jugador("Pedro" ,"aaa", 0);
         private Jugador jugador = new Jugador();
 
         #endregion
@@ -41,7 +39,6 @@ namespace MegamindMAUI.VM
         public Ficha ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; OnPropertyChanged(nameof(ColorSeleccionado)); } }
         public int Ronda { get { return ronda; } set { ronda = value; } }
         public DelegateCommand BtnJugarCommand { get { return btnJugarCommand; } }
-
         public Ficha Ficha { get { return ficha; } set { ficha = colorSeleccionado; OnPropertyChanged(nameof(Ficha)); } }
         public Ficha FichaACambiar { get { return fichaACambiar; } set { fichaACambiar = value; OnPropertyChanged("FichaACambiar"); cambiaficha(fichaACambiar); } }
         public int Resuelto { get { return resuelto; } set { resuelto = value; } }
@@ -77,7 +74,10 @@ namespace MegamindMAUI.VM
         #endregion
 
         #region COMMAND
-
+        /// <summary>
+        /// Can execute para el boton de jugar
+        /// </summary>
+        /// <returns></returns>
         private bool btnJugarCommandCanExecute()
         {
             bool bandera = false;
@@ -89,6 +89,9 @@ namespace MegamindMAUI.VM
             return bandera;
         }
 
+        /// <summary>
+        /// Botón de jugar para comprobar las combinaciones
+        /// </summary>
         private async void btnJugarCommandExecute()
         {
             trabajaPisticha();
@@ -105,6 +108,9 @@ namespace MegamindMAUI.VM
         #endregion
 
         #region INICIALIZA
+        /// <summary>
+        /// Inicializa los colores disponibles
+        /// </summary>
         private void coloresDisponibles()
         {
             tablero.Clear();
@@ -121,6 +127,9 @@ namespace MegamindMAUI.VM
             };
         }
 
+        /// <summary>
+        /// Inicializa las filas de juego
+        /// </summary>
         private void inicializaFilasJuego()
         {
             filasJuego.Clear();
@@ -139,16 +148,21 @@ namespace MegamindMAUI.VM
             };
         }
 
-
+        /// <summary>
+        /// Si el jugador no es nulo inicializa la combinacion
+        /// </summary>
         private async void OnJugadorCargado()
         {
             // Asegurémonos de que el jugador tenga un valor antes de continuar
             if (jugador != null)
             {
-                // Lógica que depende del jugador, por ejemplo, unirse a la sala y obtener la solución
                 await inicializaCombinacion();
             }
         }
+        /// <summary>
+        /// Inicializa la combinación de fichas y la envía al servidor
+        /// </summary>
+        /// <returns></returns>
         private async Task inicializaCombinacion()
         {
             List<int> solucion = new List<int>();
@@ -164,7 +178,7 @@ namespace MegamindMAUI.VM
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     combinacion.Clear();
-                    foreach (var num in solucion)
+                    foreach (int num in solucion)
                     {
                         combinacion.Add(new Ficha(num));
                     }
@@ -175,8 +189,9 @@ namespace MegamindMAUI.VM
         #endregion
 
         #region METODOS
-
-
+        /// <summary>
+        /// Calcula la ronda jugable y la pone en true si es la ronda actual y en false si no lo es 
+        /// </summary>
         private void calculaRondaJugable()
         {
             foreach (ModelFila fila in filasJuego)
@@ -189,6 +204,10 @@ namespace MegamindMAUI.VM
             }
         }
 
+        /// <summary>
+        /// Cambia la ficha de color en la fila de juego actual si se ha seleccionado un color 
+        /// </summary>
+        /// <param name="ficha"></param>
         private void cambiaficha(Ficha ficha)
         {
             int index = filasJuego[ronda].Juego.IndexOf(ficha);
@@ -199,13 +218,15 @@ namespace MegamindMAUI.VM
             BtnJugarCommand.RaiseCanExecuteChanged();
         }
 
-
+        /// <summary>
+        /// Genera las pistas de la combinación del jugador  las manda al servidor para que el otro jugador las reciba
+        /// </summary>
         private async void trabajaPisticha()
         {
-            var pistas = new List<Pisticha>();
+            List<Pisticha> pistas = new List<Pisticha>();
 
-            var combinacionRestante = combinacion.ToList();
-            var filaActual = filasJuego[ronda].Juego.ToList();
+            List<Ficha> combinacionRestante = combinacion.ToList();
+            List<Ficha> filaActual = filasJuego[ronda].Juego.ToList();
 
             // Primera pasada: Buscar fichas negras (colores correctos en la posición correcta)
             for (int i = 0; i < 4; i++)
@@ -245,7 +266,10 @@ namespace MegamindMAUI.VM
             await MegamindMAUI.Model.global.connection.InvokeAsync("MandaPisticha", jugador.Sala, filasJuego[ronda].PistaPropia, ronda);
 
         }
-
+        /// <summary>
+        /// Manda al resultado si se ha resuelto el juego
+        /// </summary>
+        /// <returns></returns>
         public async Task mandaAlResultado()
         {
             if (resuelto == 2)
@@ -259,6 +283,10 @@ namespace MegamindMAUI.VM
             }
         }
 
+        /// <summary>
+        /// Comprueba si se ha resuelto el juego, ya sea adivinando la combinación o llegando a la última ronda
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> compruebaResultado()
         {
             bool terminado = false;
