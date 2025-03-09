@@ -10,7 +10,7 @@
 
     <Grid RowSpacing="10" Padding="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -19,7 +19,7 @@
         <CollectionView Grid.Row="0"
                         MaximumHeightRequest="80"
                         BackgroundColor="#b98d66"
-                        ItemsSource="{Binding Combinacion}"
+                        ItemsSource="{Binding CombinacionVisible}"
                         HorizontalOptions="Center">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="10" VerticalItemSpacing="0"/>
@@ -52,7 +52,7 @@
                 <CollectionView Grid.Column="0"
                         Margin="80,0,0,0"
                         MaximumHeightRequest="80"
-                        ItemsSource="{Binding FilasJuego[8].Juego}"
+                        ItemsSource="{Binding FilasJuego[9].Juego}"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="CenterAndExpand"
                         SelectionMode="Single"

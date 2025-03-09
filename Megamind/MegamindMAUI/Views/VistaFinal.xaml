@@ -49,7 +49,7 @@
                                TextColor="Black"
                                HorizontalOptions="Center"/>
                         
-                        <Label Text="{Binding GanadorPuntuacion, StringFormat='Puntos: {0}'}"
+                        <Label Text="{Binding GanadorPuntuacion, StringFormat='Rondas: {0}'}"
                                FontSize="16"
                                TextColor="Black"
                                HorizontalOptions="Center"/>
@@ -73,7 +73,7 @@
                                TextColor="Black"
                                HorizontalOptions="Center"/>
                         
-                        <Label Text="{Binding PerdedorPuntuacion, StringFormat='Puntos: {0}'}"
+                        <Label Text="{Binding PerdedorPuntuacion, StringFormat='Rondas: {0}'}"
                                FontSize="16"
                                TextColor="Black"
                                HorizontalOptions="Center"/>

@@ -7,4 +7,25 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <h2>Salas Activas</h2>
+    <table border="1" class="table">
+        <thead>
+            <tr>
+                <th>Sala</th>
+                <th>Jugador 1</th>
+                <th>Jugador 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sala in Model.SalasActivas)
+            {
+                <tr>
+                    <td>@sala.NombreSala</td>
+                    <td>@sala.Jugador1</td>
+                    <td>@(sala.Jugador2)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

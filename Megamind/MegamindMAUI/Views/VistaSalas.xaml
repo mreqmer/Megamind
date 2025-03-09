@@ -77,6 +77,25 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button 
+                     Text="Recargar Salas"
+                     Command="{Binding BtnRecargaSalasCommand}"
+                     FontSize="16"
+                     FontAttributes="Bold"
+                     BackgroundColor="#3f4459"
+                     WidthRequest="200"
+                     HeightRequest="50"
+                     CornerRadius="20"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                    Margin="0,20,0,20">
+                <Button.Shadow>
+                    <Shadow Brush="Black" 
+                 Opacity="0.3" 
+                 Offset="3,3" 
+                 Radius="5"/>
+                </Button.Shadow>
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

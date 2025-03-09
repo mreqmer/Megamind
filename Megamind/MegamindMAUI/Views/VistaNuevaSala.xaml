@@ -10,7 +10,7 @@
         <vmodel:VMNuevaSala/>
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="*,Auto,Auto,Auto,*" 
+    <Grid RowDefinitions="*,Auto,Auto,Auto,*,Auto" 
           RowSpacing="15"
           VerticalOptions="Center">
 
@@ -95,5 +95,11 @@
                         Radius="5"/>
             </Button.Shadow>
         </Button>
+        <Label Grid.Row="4"
+               Text="Ya existe una sala con ese nombre"
+               IsVisible="{Binding EsMensajeSalaExistente}"
+               TextColor="Red"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
     </Grid>
 </ContentPage>

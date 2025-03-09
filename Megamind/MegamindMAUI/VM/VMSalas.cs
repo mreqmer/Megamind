@@ -19,7 +19,7 @@ namespace MegamindMAUI.VM
         //TODO borrar esto cuando se implemente la sala
         private string nombreJugador;
         private ObservableCollection<Sala> salas = new ObservableCollection<Sala>();
-
+        private DelegateCommand btnRecargaSalasCommand;
         private DelegateCommand btnUnirseSalaCommand;
         private Sala salaSeleccionada;
         #endregion
@@ -27,6 +27,7 @@ namespace MegamindMAUI.VM
         #region ATRIBUTOS
         public ObservableCollection<Sala> Salas { get { return salas; } set { salas = value; } }
         public DelegateCommand BtnUnirseSalaCommand { get {  return btnUnirseSalaCommand; } }
+        public DelegateCommand BtnRecargaSalasCommand { get { return btnRecargaSalasCommand; } }
         public string NombreJugador { get { return nombreJugador; } set { nombreJugador = value; } }
         public Sala SalaSeleccionada { get { return salaSeleccionada; } set { salaSeleccionada = value; OnPropertyChanged(nameof(SalaSeleccionada)); } }
 
@@ -35,7 +36,7 @@ namespace MegamindMAUI.VM
         #region CONSTRUCTORES
         public VMSalas()
         {
-
+            btnRecargaSalasCommand = new DelegateCommand(btnRecargaSalasCommand_Execute);
             btnUnirseSalaCommand = new DelegateCommand(btnUnirseSalaCommand_Execute);
             inicializa();
             MegamindMAUI.Model.global.connection.On<List<Sala>>("RecibeSalas", (solucion) =>
@@ -55,6 +56,11 @@ namespace MegamindMAUI.VM
         #endregion
 
         #region COMMANDS
+
+        public void btnRecargaSalasCommand_Execute()
+        {
+            inicializa();
+        }
 
         public async void btnUnirseSalaCommand_Execute()
         {
@@ -116,12 +122,16 @@ namespace MegamindMAUI.VM
 
         public async void gotoJuego()
         {
-            Jugador jugador = new Jugador(NombreJugador, salaSeleccionada.NombreSala, 0);
-            var queryParams = new Dictionary<string, object>
+            if (salaSeleccionada != null)
+            {
+                Jugador jugador = new Jugador(NombreJugador, salaSeleccionada.NombreSala, 0);
+                var queryParams = new Dictionary<string, object>
                     {
                     { "jugador", jugador }
                     };
-            await Shell.Current.GoToAsync("///Megamind", queryParams);
+                await Shell.Current.GoToAsync("///Megamind", queryParams);
+            }
+            
         }
 
 

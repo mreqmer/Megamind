@@ -20,6 +20,7 @@ namespace MegamindMAUI.VM
         #region ATRIBUTOS
         private ObservableCollection<ModelFila> filasJuego = new ObservableCollection<ModelFila>();
         private ObservableCollection<Ficha> tablero = new ObservableCollection<Ficha>();
+        private ObservableCollection<Ficha> combinacionVisible = new ObservableCollection<Ficha> { new Ficha("nada"), new Ficha("nada"), new Ficha("nada"), new Ficha("nada") };
         private ObservableCollection<Ficha> combinacion = new ObservableCollection<Ficha>();
         private Ficha colorSeleccionado;
         private Ficha ficha;
@@ -36,6 +37,7 @@ namespace MegamindMAUI.VM
         public ObservableCollection<ModelFila> FilasJuego { get { return filasJuego; } set { filasJuego = value; BtnJugarCommand.RaiseCanExecuteChanged(); } }
         public ObservableCollection<Ficha> Tablero { get { return tablero; } }
         public ObservableCollection<Ficha> Combinacion { get { return combinacion;} set { combinacion = value; } }
+        public ObservableCollection<Ficha> CombinacionVisible { get { return combinacionVisible; }  }
         public Ficha ColorSeleccionado { get { return colorSeleccionado; } set { colorSeleccionado = value; OnPropertyChanged(nameof(ColorSeleccionado)); } }
         public int Ronda { get { return ronda; } set { ronda = value; } }
         public DelegateCommand BtnJugarCommand { get { return btnJugarCommand; } }
@@ -91,11 +93,13 @@ namespace MegamindMAUI.VM
         {
             trabajaPisticha();
 
-            await compruebaResultado();
+            bool ganado = await compruebaResultado();
 
-            ronda++;
-
-            calculaRondaJugable();
+            if (!ganado)
+            {
+                ronda++;
+                calculaRondaJugable();
+            }
         }
 
         #endregion
@@ -198,60 +202,90 @@ namespace MegamindMAUI.VM
 
         private async void trabajaPisticha()
         {
+            var pistas = new List<Pisticha>();
+
+            var combinacionRestante = combinacion.ToList();
+            var filaActual = filasJuego[ronda].Juego.ToList();
+
+            // Primera pasada: Buscar fichas negras (colores correctos en la posición correcta)
             for (int i = 0; i < 4; i++)
             {
-                if (filasJuego[ronda].Juego[i].FichaColor == combinacion[i].FichaColor)
+                if (filaActual[i].FichaColor == combinacionRestante[i].FichaColor)
                 {
-                    // Si est� en la posici�n correcta, asignamos "Rojo"
-                    filasJuego[ronda].PistaPropia[i] = new Pisticha("Rojo");
-                }
-                else if (combinacion.Any(ficha => ficha.FichaColor == filasJuego[ronda].Juego[i].FichaColor))
-                {
-                    // Si est� en la combinaci�n pero en otra posici�n, asignamos "Blanco"
-                    filasJuego[ronda].PistaPropia[i] = new Pisticha("Blanco");
-                }
-                else
-                {
-                    // Si no est� en la combinaci�n, asignamos "Nada"
-                    filasJuego[ronda].PistaPropia[i] = new Pisticha("Nada");
+                    pistas.Add(new Pisticha("Rojo")); // Ficha negra (posición correcta)
+                    filaActual[i] = null; // Marcar como procesado
+                    combinacionRestante[i] = null; // Marcar como procesado
                 }
             }
 
-            filasJuego[ronda].PistaPropia = new ObservableCollection<Pisticha>(filasJuego[ronda].PistaPropia.OrderBy(p => p));
+            // Segunda pasada: Buscar fichas blancas (colores correctos en la posición incorrecta)
+            for (int i = 0; i < 4; i++)
+            {
+                if (filaActual[i] != null) // Si no ha sido procesado
+                {
+                    int index = combinacionRestante.FindIndex(f => f != null && f.FichaColor == filaActual[i].FichaColor);
+                    if (index != -1)
+                    {
+                        pistas.Add(new Pisticha("Blanco")); // Ficha blanca (color correcto, posición incorrecta)
+                        combinacionRestante[index] = null; // Marcar como procesado
+                    }
+                }
+            }
 
+            // Rellenar con "Nada" si no hay suficientes pistas
+            while (pistas.Count < 4)
+            {
+                pistas.Add(new Pisticha("Nada"));
+            }
+
+            // Asignar las pistas a la fila actual
+            filasJuego[ronda].PistaPropia = new ObservableCollection<Pisticha>(pistas);
+
+            // Enviar las pistas al servidor
             await MegamindMAUI.Model.global.connection.InvokeAsync("MandaPisticha", jugador.Sala, filasJuego[ronda].PistaPropia, ronda);
-
 
         }
 
         public async Task mandaAlResultado()
         {
-            if (resuelto == 1)
+            if (resuelto == 2)
             {
                 var queryParams = new Dictionary<string, object>
                  {
-                 { "NombreSala", jugador.Sala }
+                 { "Jugador", jugador }
                  };
 
                 await Shell.Current.GoToAsync("///Final", queryParams);
             }
         }
 
-        private async Task compruebaResultado()
+        private async Task<bool> compruebaResultado()
         {
-            if (filasJuego[ronda].PistaPropia[0].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png"
-                && filasJuego[ronda].PistaPropia[2].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[3].FichaColor == "Rojo.png")
+            bool terminado = false;
+
+            if ((filasJuego[ronda].PistaPropia[0].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[1].FichaColor == "Rojo.png"
+                && filasJuego[ronda].PistaPropia[2].FichaColor == "Rojo.png" && filasJuego[ronda].PistaPropia[3].FichaColor == "Rojo.png") || ronda == 9)
             {
+                foreach (ModelFila f in filasJuego)
+                {
+                    f.EsJugable = false;
+                    OnPropertyChanged(nameof(FilasJuego));
+                }
+
                 MainThread.BeginInvokeOnMainThread(
                     async () =>
                     {
+                        
                         Jugador auxiliar = jugador;
                         auxiliar.Puntuacion = ronda;
                         await MegamindMAUI.Model.global.connection.InvokeAsync("Terminado", auxiliar);
+                       
                     }
                 );
-                
+                terminado = true;
             }
+
+            return terminado;
         }
 
         #endregion
