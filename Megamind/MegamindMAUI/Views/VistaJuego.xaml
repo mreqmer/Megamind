@@ -7,7 +7,7 @@
     <ContentPage.BindingContext>
         <vmodel:VMJuego/>
     </ContentPage.BindingContext>
-
+<ScrollView>
     <Grid RowSpacing="10" Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -909,4 +909,5 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
+        </ScrollView>
 </ContentPage>
